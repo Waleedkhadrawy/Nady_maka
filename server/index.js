@@ -131,4 +131,8 @@ app.use((err, req, res, next)=>{
   const status = err.status || 500;
   res.status(status).json({ message: err.message || 'server_error' });
 });
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+}
+
+module.exports = app;
