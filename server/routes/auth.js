@@ -38,12 +38,13 @@ router.post('/login', rateLimiter({ windowMs: 60000, max: 60 }), requireFields([
       }
     }
 
-    if (!isProd) {
-      const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-      const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'change_me';
-      if (identifier === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    const ADMIN_USERNAME_ENV = process.env.ADMIN_USERNAME;
+    const ADMIN_PASSWORD_ENV = process.env.ADMIN_PASSWORD;
+
+    if (ADMIN_USERNAME_ENV && ADMIN_PASSWORD_ENV) {
+      if (identifier === ADMIN_USERNAME_ENV && password === ADMIN_PASSWORD_ENV) {
         const secret = process.env.JWT_SECRET || 'dev_secret';
-        const token = jwt.sign({ role: 'admin', username: ADMIN_USERNAME }, secret, { expiresIn: '12h' });
+        const token = jwt.sign({ role: 'admin', username: ADMIN_USERNAME_ENV }, secret, { expiresIn: '12h' });
         return res.json({ token });
       }
     }
