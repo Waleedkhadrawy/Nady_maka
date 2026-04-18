@@ -1,4 +1,5 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || '';
+const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+const BASE_URL = isProd ? '' : (process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001');
 
 export function getToken() {
   return localStorage.getItem('admin_token');
