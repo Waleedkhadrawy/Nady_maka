@@ -28,6 +28,10 @@ if (process.env.USE_MONGO === 'true'){
   }
 }
 
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Database Pool (PostgreSQL / Supabase via Adapter)
 (async () => {
   try {
