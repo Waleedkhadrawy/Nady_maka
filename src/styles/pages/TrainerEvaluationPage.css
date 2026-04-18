@@ -1,0 +1,285 @@
+/* Trainer Evaluation Page Styles */
+.trainer-evaluation-page {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.trainer-evaluation-page .hero-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  position: relative;
+}
+
+.trainer-evaluation-page .hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.trainer-evaluation-page .hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Evaluation Form */
+.trainer-evaluation-page .evaluation-form {
+  background: #f8f9fa;
+}
+
+.trainer-evaluation-page .card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.trainer-evaluation-page .card-header {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%) !important;
+  border: none;
+  padding: 2rem;
+}
+
+.trainer-evaluation-page .card-body {
+  padding: 2.5rem;
+}
+
+/* Section Dividers */
+.trainer-evaluation-page .section-divider {
+  margin: 2rem 0 1.5rem 0;
+}
+
+.trainer-evaluation-page .section-divider h5 {
+  color: #8BC34A;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.trainer-evaluation-page .section-divider hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #8BC34A 0%, transparent 100%);
+  margin: 0;
+}
+
+/* Form Elements */
+.trainer-evaluation-page .form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.trainer-evaluation-page .form-control,
+.trainer-evaluation-page .form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.trainer-evaluation-page .form-control:focus,
+.trainer-evaluation-page .form-select:focus {
+  border-color: #8BC34A;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, 0.25);
+}
+
+.trainer-evaluation-page .form-control[as="textarea"] {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Radio Buttons */
+.trainer-evaluation-page .form-check {
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+}
+
+.trainer-evaluation-page .form-check-input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.1rem;
+  margin-left: -2rem;
+}
+
+.trainer-evaluation-page .form-check-input:checked {
+  background-color: #8BC34A;
+  border-color: #8BC34A;
+}
+
+.trainer-evaluation-page .form-check-input:focus {
+  border-color: #8BC34A;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, 0.25);
+}
+
+.trainer-evaluation-page .form-check-label {
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Submit Button */
+.trainer-evaluation-page .btn-primary {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 3rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.trainer-evaluation-page .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.4);
+}
+
+/* Alert Styles */
+.trainer-evaluation-page .alert-success {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-left: 5px solid #28a745;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Why Evaluate Section */
+.trainer-evaluation-page .why-evaluate {
+  background: #f8f9fa;
+}
+
+.trainer-evaluation-page .benefit-item {
+  padding: 2rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.trainer-evaluation-page .benefit-item:hover {
+  transform: translateY(-5px);
+}
+
+.trainer-evaluation-page .benefit-icon {
+  margin-bottom: 1.5rem;
+}
+
+.trainer-evaluation-page .benefit-item h5 {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.trainer-evaluation-page .benefit-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Rating Colors */
+.trainer-evaluation-page .form-select option[value="5"] {
+  background-color: #d4edda;
+}
+
+.trainer-evaluation-page .form-select option[value="4"] {
+  background-color: #fff3cd;
+}
+
+.trainer-evaluation-page .form-select option[value="3"] {
+  background-color: #ffeaa7;
+}
+
+.trainer-evaluation-page .form-select option[value="2"] {
+  background-color: #fab1a0;
+}
+
+.trainer-evaluation-page .form-select option[value="1"] {
+  background-color: #ff7675;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .trainer-evaluation-page .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .trainer-evaluation-page .card-body {
+    padding: 2rem 1.5rem;
+  }
+  
+  .trainer-evaluation-page .section-divider {
+    margin: 1.5rem 0 1rem 0;
+  }
+  
+  .trainer-evaluation-page .benefit-item {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .trainer-evaluation-page .btn-primary {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .trainer-evaluation-page .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .trainer-evaluation-page .hero-section .lead {
+    font-size: 1rem;
+  }
+  
+  .trainer-evaluation-page .card-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  .trainer-evaluation-page .card-header {
+    padding: 1.5rem;
+  }
+  
+  .trainer-evaluation-page .btn-primary {
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+  }
+}
+
+/* Animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.trainer-evaluation-page .card {
+  animation: slideInUp 0.6s ease forwards;
+}
+
+.trainer-evaluation-page .benefit-item {
+  animation: slideInUp 0.8s ease forwards;
+}
+
+/* Form Validation */
+.trainer-evaluation-page .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.trainer-evaluation-page .form-control:valid {
+  border-color: #28a745;
+}
+
+.trainer-evaluation-page .was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.trainer-evaluation-page .was-validated .form-control:valid {
+  border-color: #28a745;
+}

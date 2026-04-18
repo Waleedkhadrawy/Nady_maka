@@ -1,0 +1,105 @@
+.admin-container {
+  min-height: 100vh;
+  display: flex;
+  direction: rtl;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: #0f172a;
+  color: #fff;
+  padding: 16px;
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.admin-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-weight: 800;
+  color: #38bdf8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-sidebar nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.admin-sidebar nav a:hover, .admin-sidebar nav a:focus {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.admin-main {
+  flex: 1;
+  padding: 24px;
+  background: #f8fafc;
+  min-width: 0; /* Prevents flex children from pushing grid out bounds */
+  max-width: 100%;
+}
+
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #0f172a;
+  font-size: 28px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    transform: translateX(100%);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .hamburger-btn {
+    display: block;
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .admin-main {
+    padding: 16px;
+    width: 100vw;
+  }
+}

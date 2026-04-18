@@ -1,0 +1,202 @@
+/* Typography Styles */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cairo', 'Arial', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  color: #2c3e50;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+
+h3 {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+h4 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+h5 {
+  font-size: 1.25rem;
+  color: #2c3e50;
+}
+
+h6 {
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+p {
+  font-family: 'Cairo', 'Arial', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #5a6c7d;
+}
+
+.text-primary {
+  color: #e74c3c !important;
+}
+
+.text-secondary {
+  color: #f39c12 !important;
+}
+
+.text-success {
+  color: #27ae60 !important;
+}
+
+.text-info {
+  color: #3498db !important;
+}
+
+.text-warning {
+  color: #f39c12 !important;
+}
+
+.text-danger {
+  color: #e74c3c !important;
+}
+
+.text-light {
+  color: #ecf0f1 !important;
+}
+
+.text-dark {
+  color: #2c3e50 !important;
+}
+
+.text-muted {
+  color: #95a5a6 !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.font-weight-light {
+  font-weight: 300;
+}
+
+.font-weight-normal {
+  font-weight: 400;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.font-weight-bolder {
+  font-weight: 900;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.display-1 {
+  font-size: 6rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-2 {
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-3 {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.display-4 {
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.blockquote {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-left: 4px solid #e74c3c;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.blockquote-footer {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.75rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+  
+  .display-1 {
+    font-size: 4rem;
+  }
+  
+  .display-2 {
+    font-size: 3.5rem;
+  }
+  
+  .display-3 {
+    font-size: 3rem;
+  }
+  
+  .display-4 {
+    font-size: 2.5rem;
+  }
+}

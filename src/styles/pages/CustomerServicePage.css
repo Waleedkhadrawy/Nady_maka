@@ -1,0 +1,376 @@
+/* Customer Service Page Styles */
+.customer-service-page {
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.customer-service-page .hero-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  position: relative;
+}
+
+.customer-service-page .hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.customer-service-page .hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Contact Methods Section */
+.customer-service-page .contact-methods {
+  background: #f8f9fa;
+}
+
+.customer-service-page .contact-card {
+  background: white;
+  border: none;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  height: 100%;
+}
+
+.customer-service-page .contact-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.customer-service-page .contact-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  font-size: 2rem;
+  color: white;
+}
+
+.customer-service-page .contact-card h4 {
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.customer-service-page .contact-card p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.customer-service-page .contact-card .btn {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.customer-service-page .contact-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
+}
+
+/* Inquiry Form Section */
+.customer-service-page .inquiry-form {
+  background: white;
+}
+
+.customer-service-page .form-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.customer-service-page .form-card .card-header {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%) !important;
+  border: none;
+  padding: 2rem;
+}
+
+.customer-service-page .form-card .card-body {
+  padding: 2.5rem;
+}
+
+/* Form Elements */
+.customer-service-page .form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.customer-service-page .form-control,
+.customer-service-page .form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.customer-service-page .form-control:focus,
+.customer-service-page .form-select:focus {
+  border-color: #8BC34A;
+  box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, 0.25);
+}
+
+.customer-service-page .form-control[as="textarea"] {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Submit Button */
+.customer-service-page .btn-primary {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 3rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.customer-service-page .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.4);
+}
+
+/* Alert Styles */
+.customer-service-page .alert-success {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-left: 5px solid #28a745;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* FAQ Section */
+.customer-service-page .faq-section {
+  background: #f8f9fa;
+}
+
+.customer-service-page .faq-item {
+  background: white;
+  border: none;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.customer-service-page .faq-item .card-header {
+  background: white;
+  border: none;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.customer-service-page .faq-item .card-header:hover {
+  background: #f8f9fa;
+}
+
+.customer-service-page .faq-item .card-header h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.customer-service-page .faq-item .card-body {
+  padding: 0 2rem 1.5rem 2rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.customer-service-page .faq-toggle {
+  background: none;
+  border: none;
+  color: #8BC34A;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.customer-service-page .faq-toggle.collapsed {
+  transform: rotate(180deg);
+}
+
+/* Service Hours Section */
+.customer-service-page .service-hours {
+  background: white;
+}
+
+.customer-service-page .hours-card {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border: none;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(139, 195, 74, 0.3);
+}
+
+.customer-service-page .hours-card h4 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.customer-service-page .hours-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.customer-service-page .hours-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.customer-service-page .hours-list li:last-child {
+  border-bottom: none;
+}
+
+.customer-service-page .hours-list .day {
+  font-weight: 600;
+}
+
+.customer-service-page .hours-list .time {
+  font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .customer-service-page .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .customer-service-page .contact-card {
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .customer-service-page .form-card .card-body {
+    padding: 2rem 1.5rem;
+  }
+  
+  .customer-service-page .hours-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .customer-service-page .faq-item .card-header {
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .customer-service-page .faq-item .card-body {
+    padding: 0 1.5rem 1.25rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .customer-service-page .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .customer-service-page .hero-section .lead {
+    font-size: 1rem;
+  }
+  
+  .customer-service-page .contact-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .customer-service-page .contact-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+  
+  .customer-service-page .form-card .card-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  .customer-service-page .form-card .card-header {
+    padding: 1.5rem;
+  }
+  
+  .customer-service-page .btn-primary {
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+  }
+  
+  .customer-service-page .hours-card {
+    padding: 1.5rem;
+  }
+  
+  .customer-service-page .hours-list li {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.25rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.customer-service-page .contact-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.customer-service-page .form-card {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.customer-service-page .faq-item {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.customer-service-page .hours-card {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Form Validation */
+.customer-service-page .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.customer-service-page .form-control:valid {
+  border-color: #28a745;
+}
+
+.customer-service-page .was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.customer-service-page .was-validated .form-control:valid {
+  border-color: #28a745;
+}

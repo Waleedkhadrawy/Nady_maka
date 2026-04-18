@@ -1,0 +1,345 @@
+/* Pricing Page Styles */
+.pricing-page {
+  min-height: 100vh;
+  padding-top: 96px;
+}
+/* Background cover with gentle overlay to keep content readable */
+.pricing-cover { position: relative; }
+.pricing-cover::before { content: none; }
+.pricing-cover .container { position: relative; z-index: 1; padding-top: 96px; padding-bottom: 24px; }
+
+.pricing-intro { text-align: center; max-width: 860px; margin: 0 auto 8px; }
+.pricing-intro p { font-size: 1.5rem; color: #f8fafc; font-weight: 700; text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+/* Background cover with gentle overlay to keep content readable */
+/* removed duplicate overlay block */
+
+/* Slim header at top */
+/* حذف الشريط التوضيحي العلوي واستبداله بملاحة الباقات */
+
+/* Hero Section */
+.pricing-page .hero-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  position: relative;
+}
+
+.pricing-page .hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.pricing-page .hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Pricing Cards */
+.pricing-page .pricing-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-page .pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-page .pricing-card.popular {
+  border: 3px solid #8BC34A;
+  transform: scale(1.05);
+}
+
+.pricing-page .pricing-card.popular:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.pricing-page .popular-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.pricing-page .card-header {
+  background: #f8f9fa !important;
+  border: none;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.pricing-page .plan-name {
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Navigation chips */
+.category-nav { display: flex; flex-wrap: wrap; gap: 24px; padding: 44px 0; justify-content: center; }
+.chip { padding: 18px 28px; border-radius: 999px; border: 2px solid #d1d5db; background: rgba(255,255,255,0.96); cursor: pointer; font-weight: 800; color: #0f172a; font-size: 1.6rem; box-shadow: 0 14px 32px rgba(0,0,0,0.14); }
+.chip:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.12); }
+.chip.active { background: #25D366; color: #fff; border-color: #25D366; }
+
+.group-hero { position: relative; min-height: 300px; background-size: cover; background-position: center; display: flex; align-items: center; padding: 100px 0 24px; }
+.group-hero-overlay { position: absolute; inset: 0; background: transparent; }
+.group-title { position: relative; z-index: 1; color: #fff; font-weight: 900; font-size: 3.4rem; text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.group-subtitle { position: relative; z-index: 1; color: #f1f5f9; font-size: 1.5rem; margin-top: 6px; text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+.group-actions { position: relative; z-index: 1; margin-top: 12px; }
+
+.pricing-page .price-text { font-size: 1.5rem; font-weight: 800; color: #1f2937; }
+
+/* Page readability tweaks */
+.pricing-page .section-title h2 { font-size: 3.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
+.pricing-page .section-title p { font-size: 1.5rem; color: #e2e8f0; text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+.pricing-page .card-header .plan-name { font-size: 1.4rem; font-weight: 800; color: #0f172a; }
+.category-nav { display: flex; flex-wrap: wrap; gap: 14px; padding: 24px 0; justify-content: center; }
+.chip { padding: 12px 18px; border-radius: 999px; border: 2px solid #d1d5db; background: #fff; cursor: pointer; font-weight: 800; color: #0f172a; font-size: 1.15rem; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.chip.active { background: #25D366; color: #fff; border-color: #25D366; }
+
+.pricing-page .price .amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #8BC34A;
+  line-height: 1;
+}
+
+.pricing-page .price .currency {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.pricing-page .price .period {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+.pricing-page .features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-page .features-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+}
+
+.pricing-page .features-list li:last-child {
+  border-bottom: none;
+}
+
+.pricing-page .card-footer {
+  background: transparent !important;
+  border: none;
+  padding: 1.5rem;
+}
+
+/* Training Cards */
+.pricing-page .training-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.pricing-page .training-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-page .package-name {
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pricing-page .training-card .price .amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #8BC34A;
+}
+
+.pricing-page .duration {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* Service Cards */
+.pricing-page .service-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.pricing-page .service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pricing-page .service-name {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-page .service-description {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.pricing-page .service-card .price .amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #8BC34A;
+}
+
+/* Contact Section */
+.pricing-page .contact-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+}
+
+.pricing-page .btn-light {
+  border-radius: 10px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pricing-page .btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Button Styles */
+.pricing-page .btn-success {
+  background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pricing-page .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
+}
+
+.pricing-page .btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pricing-page .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.pricing-page .btn-outline-primary {
+  border: 2px solid #8BC34A;
+  color: #8BC34A;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pricing-page .btn-outline-primary:hover {
+  background: #8BC34A;
+  border-color: #8BC34A;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pricing-page .hero-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .pricing-page .pricing-card.popular {
+    transform: none;
+    margin-bottom: 2rem;
+  }
+  
+  .pricing-page .pricing-card.popular:hover {
+    transform: translateY(-5px);
+  }
+  
+  .pricing-page .price .amount {
+    font-size: 2.5rem;
+  }
+  
+  .pricing-page .card-header {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .pricing-page .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .pricing-page .hero-section .lead {
+    font-size: 1rem;
+  }
+  
+  .pricing-page .price .amount {
+    font-size: 2rem;
+  }
+  
+  .pricing-page .service-card .card-body {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .pricing-page .service-card .text-end {
+    text-align: center !important;
+    margin-top: 1rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pricing-page .pricing-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.pricing-page .training-card {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+.pricing-page .service-card {
+  animation: fadeInUp 0.8s ease forwards;
+}

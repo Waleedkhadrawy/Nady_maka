@@ -1,0 +1,312 @@
+/* Academy Page Styles */
+.academy-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 80px 0;
+  text-align: center;
+  color: white;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+/* Academy Tables Section */
+.academy-tables {
+  background: #f8f9fa;
+  min-height: 100vh;
+  padding: 60px 0;
+}
+
+/* Academy Table Container */
+.academy-table-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.academy-table-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+/* Table Title */
+.table-title {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  text-align: center;
+  padding: 25px;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Table Grid */
+.table-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 1.5fr;
+  gap: 0;
+}
+
+.grid-cell {
+  padding: 20px 15px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-cell.header {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.grid-cell.activity {
+  background: #f8fafc;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 1.2rem;
+  text-align: right;
+  justify-content: flex-start;
+  padding-right: 25px;
+}
+
+.grid-cell.duration {
+  background: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.grid-cell.sessions {
+  background: #ecfdf5;
+  color: #166534;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.grid-cell.price {
+  background: #fef2f2;
+  color: #dc2626;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.grid-cell.booking {
+  background: #f0f9ff;
+  padding: 15px;
+}
+
+/* Book Button */
+.book-btn {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.book-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.book-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Hover Effects */
+.grid-cell:not(.header):not(.booking):hover {
+  background: #f1f5f9;
+  transform: scale(1.02);
+  z-index: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .table-grid {
+    grid-template-columns: 1.8fr 1.3fr 1.3fr 1.3fr 1.3fr;
+  }
+  
+  .grid-cell {
+    padding: 15px 10px;
+    font-size: 0.95rem;
+  }
+  
+  .grid-cell.header {
+    font-size: 1rem;
+  }
+  
+  .grid-cell.activity {
+    font-size: 1.1rem;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .academy-table-container {
+    margin-bottom: 40px;
+  }
+  
+  .table-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  }
+  
+  .grid-cell {
+    padding: 12px 8px;
+    font-size: 0.9rem;
+  }
+  
+  .grid-cell.header {
+    font-size: 0.95rem;
+  }
+  
+  .grid-cell.activity {
+    font-size: 1rem;
+    padding-right: 15px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .book-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .grid-cell {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    text-align: right;
+    justify-content: flex-start;
+  }
+  
+  .grid-cell.header {
+    display: none;
+  }
+  
+  .grid-cell.activity::before {
+    content: 'النشاط: ';
+    font-weight: 600;
+    color: #6366f1;
+    margin-left: 10px;
+  }
+  
+  .grid-cell.duration::before {
+    content: 'المدة: ';
+    font-weight: 600;
+    color: #92400e;
+    margin-left: 10px;
+  }
+  
+  .grid-cell.sessions::before {
+    content: 'عدد الجلسات: ';
+    font-weight: 600;
+    color: #166534;
+    margin-left: 10px;
+  }
+  
+  .grid-cell.price::before {
+    content: 'السعر: ';
+    font-weight: 600;
+    color: #dc2626;
+    margin-left: 10px;
+  }
+  
+  .grid-cell.booking {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .table-title {
+    font-size: 1.5rem;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .academy-tables {
+    padding: 40px 0;
+  }
+  
+  .hero-section {
+    padding: 60px 0;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .grid-cell {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .book-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}

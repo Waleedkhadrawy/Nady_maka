@@ -1,0 +1,243 @@
+{
+  "activities": [
+    {
+      "id": 1,
+      "name": "كرة القدم",
+      "nameEn": "Football",
+      "description": "تدريب كرة القدم للجميع الأعمار مع مدربين محترفين",
+      "descriptionEn": "Football training for all ages with professional coaches",
+      "image": "/images/fitness.svg",
+      "category": "رياضة جماعية",
+      "categoryEn": "Team Sports",
+      "ageGroup": "6-18",
+      "duration": "90 دقيقة",
+      "durationEn": "90 minutes",
+      "price": 150,
+      "currency": "ريال",
+      "schedule": [
+        {"day": "الأحد", "dayEn": "Sunday", "time": "16:00-17:30"},
+        {"day": "الثلاثاء", "dayEn": "Tuesday", "time": "16:00-17:30"},
+        {"day": "الخميس", "dayEn": "Thursday", "time": "16:00-17:30"}
+      ],
+      "trainer": "أحمد محمد",
+      "trainerEn": "Ahmed Mohammed",
+      "capacity": 20,
+      "enrolled": 15,
+      "status": "متاح",
+      "statusEn": "Available"
+    },
+    {
+      "id": 2,
+      "name": "الجمباز",
+      "nameEn": "Gymnastics",
+      "description": "تدريب الجمباز لتطوير المرونة والقوة",
+      "descriptionEn": "Gymnastics training to develop flexibility and strength",
+      "image": "/images/gymnastics.svg",
+      "category": "رياضة فردية",
+      "categoryEn": "Individual Sports",
+      "ageGroup": "4-16",
+      "duration": "60 دقيقة",
+      "durationEn": "60 minutes",
+      "price": 200,
+      "currency": "ريال",
+      "schedule": [
+        {"day": "السبت", "dayEn": "Saturday", "time": "10:00-11:00"},
+        {"day": "الاثنين", "dayEn": "Monday", "time": "16:00-17:00"},
+        {"day": "الأربعاء", "dayEn": "Wednesday", "time": "16:00-17:00"}
+      ],
+      "trainer": "سارة أحمد",
+      "trainerEn": "Sara Ahmed",
+      "capacity": 12,
+      "enrolled": 8,
+      "status": "متاح",
+      "statusEn": "Available"
+    },
+    {
+      "id": 3,
+      "name": "الكاراتيه",
+      "nameEn": "Karate",
+      "description": "تعلم فنون الدفاع عن النفس والانضباط",
+      "descriptionEn": "Learn martial arts and self-discipline",
+      "image": "/images/karate.svg",
+      "category": "فنون قتالية",
+      "categoryEn": "Martial Arts",
+      "ageGroup": "5-18",
+      "duration": "75 دقيقة",
+      "durationEn": "75 minutes",
+      "price": 180,
+      "currency": "ريال",
+      "schedule": [
+        {"day": "الأحد", "dayEn": "Sunday", "time": "18:00-19:15"},
+        {"day": "الثلاثاء", "dayEn": "Tuesday", "time": "18:00-19:15"},
+        {"day": "الخميس", "dayEn": "Thursday", "time": "18:00-19:15"}
+      ],
+      "trainer": "محمد علي",
+      "trainerEn": "Mohammed Ali",
+      "capacity": 15,
+      "enrolled": 12,
+      "status": "متاح",
+      "statusEn": "Available"
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "name": "عبدالله أحمد",
+      "nameEn": "Abdullah Ahmed",
+      "email": "abdullah@example.com",
+      "phone": "+966501234567",
+      "age": 12,
+      "gender": "ذكر",
+      "genderEn": "Male",
+      "membershipType": "شهري",
+      "membershipTypeEn": "Monthly",
+      "joinDate": "2024-01-15",
+      "activities": [1, 3],
+      "status": "نشط",
+      "statusEn": "Active",
+      "emergencyContact": {
+        "name": "أحمد محمد",
+        "nameEn": "Ahmed Mohammed",
+        "phone": "+966501234568",
+        "relation": "والد",
+        "relationEn": "Father"
+      }
+    },
+    {
+      "id": 2,
+      "name": "فاطمة سالم",
+      "nameEn": "Fatima Salem",
+      "email": "fatima@example.com",
+      "phone": "+966501234569",
+      "age": 8,
+      "gender": "أنثى",
+      "genderEn": "Female",
+      "membershipType": "سنوي",
+      "membershipTypeEn": "Annual",
+      "joinDate": "2023-12-01",
+      "activities": [2],
+      "status": "نشط",
+      "statusEn": "Active",
+      "emergencyContact": {
+        "name": "سالم محمد",
+        "nameEn": "Salem Mohammed",
+        "phone": "+966501234570",
+        "relation": "والد",
+        "relationEn": "Father"
+      }
+    }
+  ],
+  "trainers": [
+    {
+      "id": 1,
+      "name": "أحمد محمد",
+      "nameEn": "Ahmed Mohammed",
+      "email": "ahmed.trainer@makkahyard.com",
+      "phone": "+966501234571",
+      "specialization": "كرة القدم",
+      "specializationEn": "Football",
+      "experience": "5 سنوات",
+      "experienceEn": "5 years",
+      "certification": "مدرب معتمد من الاتحاد السعودي",
+      "certificationEn": "Certified by Saudi Football Federation",
+      "activities": [1],
+      "status": "نشط",
+      "statusEn": "Active"
+    },
+    {
+      "id": 2,
+      "name": "سارة أحمد",
+      "nameEn": "Sara Ahmed",
+      "email": "sara.trainer@makkahyard.com",
+      "phone": "+966501234572",
+      "specialization": "الجمباز",
+      "specializationEn": "Gymnastics",
+      "experience": "7 سنوات",
+      "experienceEn": "7 years",
+      "certification": "مدربة معتمدة دولياً",
+      "certificationEn": "Internationally Certified Trainer",
+      "activities": [2],
+      "status": "نشط",
+      "statusEn": "Active"
+    },
+    {
+      "id": 3,
+      "name": "محمد علي",
+      "nameEn": "Mohammed Ali",
+      "email": "mohammed.trainer@makkahyard.com",
+      "phone": "+966501234573",
+      "specialization": "الكاراتيه",
+      "specializationEn": "Karate",
+      "experience": "10 سنوات",
+      "experienceEn": "10 years",
+      "certification": "حزام أسود درجة ثالثة",
+      "certificationEn": "3rd Degree Black Belt",
+      "activities": [3],
+      "status": "نشط",
+      "statusEn": "Active"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "بطولة كرة القدم الصيفية",
+      "titleEn": "Summer Football Championship",
+      "description": "بطولة كرة قدم للأطفال والناشئين",
+      "descriptionEn": "Football championship for children and youth",
+      "date": "2024-07-15",
+      "time": "16:00",
+      "location": "ملعب مكة يارد الرئيسي",
+      "locationEn": "Makkah Yard Main Field",
+      "category": "بطولة",
+      "categoryEn": "Championship",
+      "ageGroup": "8-16",
+      "registrationFee": 50,
+      "currency": "ريال",
+      "maxParticipants": 32,
+      "registeredParticipants": 18,
+      "status": "مفتوح للتسجيل",
+      "statusEn": "Open for Registration"
+    },
+    {
+      "id": 2,
+      "title": "عرض الجمباز السنوي",
+      "titleEn": "Annual Gymnastics Show",
+      "description": "عرض مهارات الجمباز للطلاب",
+      "descriptionEn": "Gymnastics skills showcase for students",
+      "date": "2024-06-20",
+      "time": "19:00",
+      "location": "صالة الجمباز",
+      "locationEn": "Gymnastics Hall",
+      "category": "عرض",
+      "categoryEn": "Show",
+      "ageGroup": "جميع الأعمار",
+      "registrationFee": 0,
+      "currency": "ريال",
+      "maxParticipants": 100,
+      "registeredParticipants": 45,
+      "status": "مفتوح للتسجيل",
+      "statusEn": "Open for Registration"
+    }
+  ],
+  "settings": {
+    "siteName": "مكة يارد",
+    "siteNameEn": "Makkah Yard",
+    "description": "مركز رياضي متكامل للأطفال والناشئين",
+    "descriptionEn": "Complete sports center for children and youth",
+    "contact": {
+      "phone": "+966 55 018 5599",
+      "email": "info@makkahyard.com",
+      "address": "مكة المكرمة، المملكة العربية السعودية",
+      "addressEn": "Makkah, Saudi Arabia"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/makkahyard",
+      "instagram": "https://instagram.com/makkahyard",
+      "twitter": "https://twitter.com/makkahyard"
+    },
+    "workingHours": {
+      "weekdays": "15:00 - 22:00",
+      "weekends": "09:00 - 22:00"
+    }
+  }
+}

@@ -1,0 +1,213 @@
+.tutorial-videos-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.tutorial-videos-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  pointer-events: none;
+}
+
+.tutorial-videos-content {
+  position: relative;
+  z-index: 2;
+}
+
+.tutorial-video-item {
+  margin-bottom: 30px;
+}
+
+.tutorial-video-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.tutorial-video-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.tutorial-video-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.video-header {
+  padding: 25px 30px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.video-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 10px solid #764ba2;
+}
+
+.video-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1.3;
+}
+
+.video-embed {
+  padding: 30px;
+  background: #ffffff;
+}
+
+.video-embed iframe {
+  width: 100%;
+  height: 500px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.video-embed iframe:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .tutorial-videos-section {
+    padding: 60px 0;
+  }
+  
+  .tutorial-video-item {
+    margin-bottom: 40px;
+  }
+  
+  .video-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .video-embed {
+    padding: 25px;
+  }
+  
+  .video-embed iframe {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tutorial-videos-section {
+    padding: 50px 0;
+  }
+  
+  .video-header {
+    padding: 20px 25px 15px;
+  }
+  
+  .video-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .video-embed {
+    padding: 20px;
+  }
+  
+  .video-embed iframe {
+    height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .tutorial-videos-section {
+    padding: 40px 0;
+  }
+  
+  .tutorial-video-card {
+    border-radius: 15px;
+  }
+  
+  .video-header {
+    padding: 18px 20px 12px;
+  }
+  
+  .video-header h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .video-embed {
+    padding: 15px;
+  }
+  
+  .video-embed iframe {
+    height: 200px;
+    border-radius: 12px;
+  }
+}
+
+/* Animation Effects */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tutorial-video-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.tutorial-video-item:nth-child(2) .tutorial-video-card {
+  animation-delay: 0.2s;
+}
+
+/* Loading State */
+.video-embed iframe {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.video-embed iframe[src] {
+  background: none;
+  animation: none;
+}

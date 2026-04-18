@@ -1,0 +1,249 @@
+/* Sections Styles */
+
+.section {
+  padding: 80px 0;
+  position: relative;
+}
+
+.section-hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.section-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.section-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-about {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.section-services {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.section-activities {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.section-stats {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: #fff;
+  position: relative;
+}
+
+.section-stats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+  opacity: 0.1;
+}
+
+.section-contact {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.section-testimonials {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.section-gallery {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.section-team {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.section-pricing {
+  padding: 100px 0;
+  background: #f8f9fa;
+}
+
+.bg-pattern {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(243, 156, 18, 0.1));
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  position: relative;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.section-dark {
+  background: #2c3e50;
+  color: #fff;
+}
+
+.section-light {
+  background: #f8f9fa;
+  color: #2c3e50;
+}
+
+.section-primary {
+  background: linear-gradient(135deg, #e74c3c, #f39c12);
+  color: #fff;
+}
+
+.section-overlay {
+  position: relative;
+}
+
+.section-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.section-overlay > * {
+  position: relative;
+  z-index: 2;
+}
+
+.section-curved {
+  position: relative;
+}
+
+.section-curved::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: inherit;
+  clip-path: ellipse(100% 100% at 50% 0%);
+}
+
+.section-curved::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: inherit;
+  clip-path: ellipse(100% 100% at 50% 100%);
+}
+
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.section-spacer {
+  height: 50px;
+}
+
+.section-spacer-lg {
+  height: 100px;
+}
+
+.section-spacer-sm {
+  height: 25px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
+  
+  .section-hero {
+    height: 70vh;
+  }
+  
+  .section-about,
+  .section-services,
+  .section-activities,
+  .section-contact,
+  .section-testimonials,
+  .section-gallery,
+  .section-team,
+  .section-pricing {
+    padding: 80px 0;
+  }
+  
+  .section-stats {
+    padding: 60px 0;
+  }
+  
+  .parallax-section {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 576px) {
+  .section {
+    padding: 40px 0;
+  }
+  
+  .section-hero {
+    height: 60vh;
+  }
+  
+  .section-about,
+  .section-services,
+  .section-activities,
+  .section-contact,
+  .section-testimonials,
+  .section-gallery,
+  .section-team,
+  .section-pricing {
+    padding: 60px 0;
+  }
+  
+  .section-stats {
+    padding: 40px 0;
+  }
+}

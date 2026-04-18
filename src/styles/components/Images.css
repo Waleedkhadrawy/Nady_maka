@@ -1,0 +1,212 @@
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.rounded-image {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.about-image {
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+  transform: scale(1.05);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.team-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.team-image:hover {
+  transform: scale(1.1);
+}
+
+.logo {
+  max-height: 85px;
+  width: auto;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+}
+
+.logo:hover {
+  transform: scale(1.08) rotate(2deg);
+  filter: drop-shadow(0 4px 8px rgba(231, 76, 60, 0.3));
+}
+
+.navbar-brand {
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.navbar-brand:hover {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.05));
+  border-color: rgba(231, 76, 60, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+}
+
+.brand-text {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #2c3e50;
+  font-family: 'Cairo', 'Amiri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-right: 0.75rem;
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.navbar-brand:hover .brand-text {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+}
+
+.navbar-brand {
+  text-decoration: none !important;
+}
+
+.navbar-brand:hover {
+  text-decoration: none !important;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 768px) {
+  .logo {
+    max-height: 70px;
+  }
+  
+  .brand-text {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+  }
+  
+  .navbar-brand {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo {
+    max-height: 60px;
+  }
+  
+  .brand-text {
+    font-size: 1.2rem;
+    margin-right: 0.25rem;
+  }
+  
+  .navbar-brand {
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+.icon-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.video-thumbnail {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.video-thumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.video-thumbnail .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 4rem;
+  color: #fff;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.video-thumbnail:hover .play-button {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-image {
+    height: 70vh;
+  }
+  
+  .gallery-image {
+    height: 200px;
+  }
+  
+  .team-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .video-thumbnail .play-button {
+    font-size: 3rem;
+  }
+}

@@ -1,0 +1,107 @@
+/* Base Styles */
+:root {
+  --primary-color: #0a6e3d; /* الأخضر الرئيسي */
+  --secondary-color: #0f4c81; /* الأزرق الداكن */
+  --accent-color: #f7b500; /* اللون الذهبي */
+  --light-color: #f8f9fa; /* اللون الفاتح للخلفية */
+  --dark-color: #2c3e50; /* اللون الداكن للنصوص */
+  --white-color: #ffffff;
+  --gray-color: #6c757d;
+  --light-gray-color: #e9ecef;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', serif;
+  font-weight: bold;
+  direction: rtl;
+  text-align: right;
+  background-color: var(--light-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.btn-secondary {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #1a252f;
+}
+
+.section {
+  padding: 60px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #7f8c8d;
+}

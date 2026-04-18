@@ -1,0 +1,318 @@
+.main-content-section {
+  background: linear-gradient(135deg, #8BC34A 0%, #4CAF50 25%, #689F38 50%, #558B2F 75%, #33691E 100%);
+  padding: 80px 0;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: backgroundShift 15s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { background: linear-gradient(135deg, #8BC34A 0%, #4CAF50 25%, #689F38 50%, #558B2F 75%, #33691E 100%); }
+  25% { background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 25%, #689F38 50%, #33691E 75%, #558B2F 100%); }
+  50% { background: linear-gradient(135deg, #689F38 0%, #8BC34A 25%, #4CAF50 50%, #558B2F 75%, #33691E 100%); }
+  75% { background: linear-gradient(135deg, #558B2F 0%, #689F38 25%, #8BC34A 50%, #4CAF50 75%, #33691E 100%); }
+}
+
+.main-content-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255,255,255,0.06) 0%, transparent 50%),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="waves" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M0 50 Q25 25 50 50 T100 50 V100 H0 Z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23waves)"/></svg>') repeat;
+  opacity: 0.4;
+  animation: waveMove 25s linear infinite, floatingLights 12s ease-in-out infinite;
+}
+
+@keyframes floatingLights {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  25% { transform: translateX(10px) translateY(-5px) scale(1.05); }
+  50% { transform: translateX(-5px) translateY(10px) scale(0.95); }
+  75% { transform: translateX(-10px) translateY(-10px) scale(1.02); }
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100px); }
+}
+
+.main-content {
+  position: relative;
+  z-index: 2;
+}
+
+.content-header {
+  margin-bottom: 60px;
+}
+
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 
+    2px 2px 4px rgba(0,0,0,0.3),
+    0 0 20px rgba(255,255,255,0.3),
+    0 0 40px rgba(255,255,255,0.1);
+  line-height: 1.2;
+  background: linear-gradient(45deg, #ffffff, #f0f8e8, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.main-subtitle {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  opacity: 0.95;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.secondary-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.services-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  margin-top: 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-wrap: wrap;
+}
+
+.service-showcase-item {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 45px 25px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-width: 220px;
+  max-width: 280px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  animation: cardFloat 6s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.service-showcase-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.service-showcase-item::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.service-showcase-item:hover::before {
+  left: 100%;
+}
+
+.service-showcase-item:hover {
+  transform: translateY(-20px) scale(1.05) rotateY(5deg);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.2));
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.3),
+    0 0 30px rgba(255,255,255,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  animation: none;
+}
+
+.service-showcase-item:hover::after {
+  opacity: 1;
+}
+
+.service-showcase-icon {
+  width: 90px;
+  height: 90px;
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1)),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 8px 20px rgba(0,0,0,0.15),
+    inset 0 2px 4px rgba(255,255,255,0.2),
+    0 0 0 0 rgba(255,255,255,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-showcase-icon::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: iconRotate 4s linear infinite;
+}
+
+@keyframes iconRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.service-showcase-icon i {
+  font-size: 2.5rem;
+  color: white;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: 
+    drop-shadow(0 2px 4px rgba(0,0,0,0.3))
+    drop-shadow(0 0 10px rgba(255,255,255,0.3));
+  position: relative;
+  z-index: 2;
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.service-showcase-item:hover .service-showcase-icon {
+  background: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.3)),
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent);
+  transform: scale(1.2) rotate(15deg) translateZ(10px);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 15px 40px rgba(0,0,0,0.3),
+    inset 0 2px 4px rgba(255,255,255,0.3),
+    0 0 20px rgba(255,255,255,0.5),
+    0 0 0 5px rgba(255,255,255,0.2);
+}
+
+.service-showcase-item:hover .service-showcase-icon i {
+  transform: scale(1.2) rotateY(10deg);
+  filter: 
+    drop-shadow(0 4px 8px rgba(0,0,0,0.4))
+    drop-shadow(0 0 20px rgba(255,255,255,0.6))
+    drop-shadow(0 0 40px rgba(255,255,255,0.3));
+  animation: none;
+}
+
+.service-showcase-item h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.service-showcase-item:hover h3 {
+  transform: translateY(-2px);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content-section {
+    padding: 60px 0;
+  }
+  
+  .main-title {
+    font-size: 2.5rem;
+  }
+  
+  .main-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .secondary-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .services-showcase {
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 40px;
+  }
+  
+  .service-showcase-item {
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  .service-showcase-item {
+    padding: 30px 20px;
+  }
+  
+  .service-showcase-icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .service-showcase-icon i {
+    font-size: 2rem;
+  }
+  
+  .service-showcase-item h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .services-showcase {
+    gap: 20px;
+  }
+  
+  .service-showcase-item {
+    padding: 25px 15px;
+  }
+}

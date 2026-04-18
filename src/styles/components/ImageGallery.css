@@ -1,0 +1,348 @@
+.image-gallery-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f1f3f4 0%, #e8eaf6 100%);
+}
+
+.image-gallery-grid {
+  margin-top: 50px;
+}
+
+.image-gallery-item {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.image-gallery-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.image-gallery-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.image-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-gallery-item:hover .image-gallery-img {
+  transform: scale(1.08);
+}
+
+.image-gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.image-gallery-item:hover .image-gallery-overlay {
+  opacity: 1;
+}
+
+.zoom-icon {
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.image-gallery-item:hover .zoom-icon {
+  transform: scale(1.2);
+  color: #4fc3f7;
+}
+
+.image-info {
+  text-align: center;
+  color: white;
+  padding: 0 25px;
+}
+
+.image-info h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  line-height: 1.3;
+}
+
+.image-info p {
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.95;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  line-height: 1.4;
+}
+
+.image-gallery-content {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image-gallery-content h6 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.image-category {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Modal Styles */
+.image-viewer-container {
+  position: relative;
+  background: #000;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-viewer {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.nav-arrow:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-arrow-left {
+  left: 20px;
+}
+
+.nav-arrow-right {
+  right: 20px;
+}
+
+.image-counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.image-description {
+  background: white;
+  padding: 25px;
+  border-top: 1px solid #eee;
+}
+
+.image-description h5 {
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.image-description p {
+  margin: 0 0 15px 0;
+  color: #666;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.image-category-modal {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .image-gallery-section {
+    padding: 60px 0;
+  }
+  
+  .image-gallery-thumbnail {
+    height: 200px;
+  }
+  
+  .zoom-icon {
+    font-size: 2.8rem;
+  }
+  
+  .image-info h5 {
+    font-size: 1.1rem;
+  }
+  
+  .image-info p {
+    font-size: 0.85rem;
+  }
+  
+  .image-gallery-content {
+    padding: 20px;
+  }
+  
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .nav-arrow-left {
+    left: 10px;
+  }
+  
+  .nav-arrow-right {
+    right: 10px;
+  }
+  
+  .image-counter {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .image-description {
+    padding: 20px;
+  }
+  
+  .modal-image {
+    max-height: 50vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-gallery-section {
+    padding: 40px 0;
+  }
+  
+  .image-gallery-thumbnail {
+    height: 180px;
+  }
+  
+  .zoom-icon {
+    font-size: 2.5rem;
+  }
+  
+  .image-gallery-content {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .image-gallery-content h6 {
+    font-size: 1rem;
+  }
+  
+  .image-category {
+    align-self: flex-start;
+  }
+  
+  .image-description h5 {
+    font-size: 1.2rem;
+  }
+  
+  .image-description {
+    padding: 15px;
+  }
+}
+
+/* Animation for gallery items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.image-gallery-item {
+  animation: fadeInUp 0.7s ease forwards;
+  opacity: 0;
+}
+
+.image-gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.image-gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.image-gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.image-gallery-item:nth-child(4) { animation-delay: 0.4s; }
+.image-gallery-item:nth-child(5) { animation-delay: 0.5s; }
+.image-gallery-item:nth-child(6) { animation-delay: 0.6s; }
+.image-gallery-item:nth-child(7) { animation-delay: 0.7s; }
+.image-gallery-item:nth-child(8) { animation-delay: 0.8s; }
+.image-gallery-item:nth-child(9) { animation-delay: 0.9s; }
