@@ -10,25 +10,67 @@ const { rateLimiter } = require('../middleware/rateLimiter');
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
 }
+function isValidSaudiMobile(phone) {
+  return /^05\d{8}$/.test(String(phone || '').trim());
+}
+function isValidNationalId(id) {
+  return /^\d{10}$/.test(String(id || '').trim());
+}
 
 router.post('/register', rateLimiter({ windowMs: 60000, max: 20 }), requireFields(['email','password']), async (req,res)=>{
   try{
     const pool = req.app.locals.mysql;
     if (!pool) return res.status(503).json({ message: 'database_unavailable' });
-    const { first_name, last_name, email, phone, password, gender, dob } = req.body || {};
+    const {
+      first_name, last_name, username, email, phone, password, gender, dob,
+      national_id, job_title, address
+    } = req.body || {};
     if (!email || !password) return res.status(400).json({ message: 'invalid_payload' });
     if (!isValidEmail(email)) return res.status(400).json({ message: 'invalid_email' });
     if (String(password).length < 8) return res.status(400).json({ message: 'weak_password' });
-    if (!first_name || !String(first_name).trim()) return res.status(400).json({ message: 'first_name_required' });
-    if (!last_name || !String(last_name).trim()) return res.status(400).json({ message: 'last_name_required' });
+    if (phone && !isValidSaudiMobile(phone)) return res.status(400).json({ message: 'invalid_phone_sa' });
+    if (national_id && !isValidNationalId(national_id)) return res.status(400).json({ message: 'invalid_national_id' });
+    const derivedName = String(username || email || '').split('@')[0] || 'member';
+    const finalFirstName = String(first_name || '').trim() || derivedName;
+    const finalLastName = String(last_name || '').trim() || 'user';
     const exists = await urepo.findUserByEmail(pool, email);
     if (exists) return res.status(400).json({ message: 'user_exists' });
     const hash = await bcrypt.hash(password, 10);
-    const user = await urepo.createUser(pool, { first_name, last_name, email, phone, password_hash: hash });
+    const user = await urepo.createUser(pool, {
+      first_name: finalFirstName,
+      last_name: finalLastName,
+      email,
+      phone,
+      national_id,
+      job_title,
+      address,
+      password_hash: hash
+    });
     let customer = await mrepo.findCustomerByEmail(pool, email);
-    if (!customer) customer = await mrepo.createCustomer(pool, { name: `${first_name||''} ${last_name||''}`.trim() || email, email, phone });
+    if (!customer) customer = await mrepo.createCustomer(pool, {
+      name: `${finalFirstName||''} ${finalLastName||''}`.trim() || email,
+      email,
+      phone,
+      national_id,
+      job_title,
+      address
+    });
     let member = await mrepo.findMemberByCustomerId(pool, customer.id);
-    if (!member) member = await mrepo.createMember(pool, { customer_id: customer.id, name: `${first_name||''} ${last_name||''}`.trim() || email, email, phone, gender, dob, join_date: new Date().toISOString().slice(0,10), type: 'primary' });
+    if (!member) {
+      member = await mrepo.createMember(pool, {
+        customer_id: customer.id,
+        name: `${finalFirstName||''} ${finalLastName||''}`.trim() || email,
+        email,
+        phone,
+        gender,
+        dob,
+        national_id,
+        job_title,
+        address,
+        join_date: new Date().toISOString().slice(0,10),
+        type: 'primary'
+      });
+    }
     const token = jwt.sign({ role: 'member', user_id: user.id, member_id: member.id, email }, process.env.JWT_SECRET || 'dev_secret', { expiresIn: '12h' });
     res.status(201).json({ token });
   }catch(e){ res.status(400).json({ message: e.message || 'Invalid data' }); }

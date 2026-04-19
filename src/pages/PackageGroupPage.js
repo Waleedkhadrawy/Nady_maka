@@ -152,7 +152,14 @@ export default function PackageGroupPage() {
                   </ul>
                 </Card.Body>
                 <Card.Footer className="text-center">
-                  <Button variant={plan.popular ? 'success' : 'primary'} className="w-100">اختيار الباقة</Button>
+                  <Button
+                    as={Link}
+                    to="/membership"
+                    variant={plan.popular ? 'success' : 'primary'}
+                    className="w-100"
+                  >
+                    اختيار الباقة
+                  </Button>
                 </Card.Footer>
               </Card>
             </Col>

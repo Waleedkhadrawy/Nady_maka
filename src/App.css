@@ -253,6 +253,17 @@ a:hover {
 }
 
 /* Print Styles */
+/* مسافة تحت الهيدر الثابت + عدم تداخل المحتوى مع القائمة */
+.app .main-content {
+  padding-top: 88px;
+}
+
+@media (max-width: 991px) {
+  .app .main-content {
+    padding-top: 72px;
+  }
+}
+
 @media print {
   .no-print {
     display: none !important;

@@ -1,28 +1,52 @@
+async function ensureProfileSchema(pool){
+  const [customerCols] = await pool.query("SHOW COLUMNS FROM customers");
+  const haveCustomer = new Set(customerCols.map(c => c.Field));
+  if (!haveCustomer.has('national_id')) await pool.query('ALTER TABLE customers ADD COLUMN national_id VARCHAR(32) NULL');
+  if (!haveCustomer.has('job_title')) await pool.query('ALTER TABLE customers ADD COLUMN job_title VARCHAR(128) NULL');
+  if (!haveCustomer.has('address')) await pool.query('ALTER TABLE customers ADD COLUMN address VARCHAR(255) NULL');
+
+  const [memberCols] = await pool.query("SHOW COLUMNS FROM members");
+  const haveMember = new Set(memberCols.map(c => c.Field));
+  if (!haveMember.has('national_id')) await pool.query('ALTER TABLE members ADD COLUMN national_id VARCHAR(32) NULL');
+  if (!haveMember.has('job_title')) await pool.query('ALTER TABLE members ADD COLUMN job_title VARCHAR(128) NULL');
+  if (!haveMember.has('address')) await pool.query('ALTER TABLE members ADD COLUMN address VARCHAR(255) NULL');
+}
+
 async function getPackageByCode(pool, code){
   const [rows] = await pool.query('SELECT id, code, label, price, currency, period_days, kind, segment, allow_partner, min_age, max_age FROM membership_packages WHERE code = ? LIMIT 1', [code]);
   return rows[0] || null;
 }
 
 async function findCustomerByEmail(pool, email){
+  await ensureProfileSchema(pool);
   if (!email) return null;
-  const [rows] = await pool.query('SELECT id,name,email,phone FROM customers WHERE email = ? LIMIT 1', [email]);
+  const [rows] = await pool.query('SELECT id,name,email,phone,national_id,job_title,address FROM customers WHERE email = ? LIMIT 1', [email]);
   return rows[0] || null;
 }
 
 async function createCustomer(pool, data){
-  const { name, email, phone } = data;
-  const [res] = await pool.query('INSERT INTO customers (name,email,phone) VALUES (?,?,?)', [name, email || null, phone || null]);
+  await ensureProfileSchema(pool);
+  const { name, email, phone, national_id, job_title, address } = data;
+  const [res] = await pool.query(
+    'INSERT INTO customers (name,email,phone,national_id,job_title,address) VALUES (?,?,?,?,?,?)',
+    [name, email || null, phone || null, national_id || null, job_title || null, address || null]
+  );
   return { id: res.insertId };
 }
 
 async function findMemberByCustomerId(pool, customerId){
-  const [rows] = await pool.query("SELECT id,name,email,phone FROM members WHERE customer_id = ? AND type = 'primary' LIMIT 1", [customerId]);
+  await ensureProfileSchema(pool);
+  const [rows] = await pool.query("SELECT id,name,email,phone,national_id,job_title,address FROM members WHERE customer_id = ? AND type = 'primary' LIMIT 1", [customerId]);
   return rows[0] || null;
 }
 
 async function createMember(pool, data){
-  const { customer_id, name, email, phone, gender, dob, join_date, type } = data;
-  const [res] = await pool.query("INSERT INTO members (customer_id,name,email,phone,gender,dob,join_date,type,status) VALUES (?,?,?,?,?,?,?,?,'active')", [customer_id, name, email || null, phone || null, gender || null, dob || null, join_date, type || 'primary']);
+  await ensureProfileSchema(pool);
+  const { customer_id, name, email, phone, gender, dob, join_date, type, national_id, job_title, address } = data;
+  const [res] = await pool.query(
+    "INSERT INTO members (customer_id,name,email,phone,gender,dob,join_date,type,status,national_id,job_title,address) VALUES (?,?,?,?,?,?,?,?,'active',?,?,?)",
+    [customer_id, name, email || null, phone || null, gender || null, dob || null, join_date, type || 'primary', national_id || null, job_title || null, address || null]
+  );
   return { id: res.insertId };
 }
 
@@ -82,6 +106,7 @@ async function updateMembershipStatus(pool, id, status){
 }
 
 module.exports = {
+  ensureProfileSchema,
   getPackageByCode,
   findCustomerByEmail,
   createCustomer,

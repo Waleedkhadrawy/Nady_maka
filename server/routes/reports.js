@@ -21,8 +21,6 @@ router.get('/', auth, adminOnly, async (req,res)=>{
   }
 });
 
-module.exports = router;
-
 function esc(v){
   if (v === null || v === undefined) return '';
   const s = String(v).replace(/"/g,'""');
@@ -101,3 +99,5 @@ router.get('/export', auth, adminOnly, async (req, res) => {
     res.status(500).json({ message: e.message || 'Server error' });
   }
 });
+
+module.exports = router;

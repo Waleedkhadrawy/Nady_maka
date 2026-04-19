@@ -45,7 +45,15 @@ function App() {
     <div className="app">
       <Header />
       <main className="main-content">
-        <Toaster position="top-center" toastOptions={{ duration: 4000, style: { fontSize: '1rem', fontFamily: 'inherit' } }} />
+        <Toaster
+          position="top-center"
+          containerStyle={{ top: 88, zIndex: 1040 }}
+          gutter={12}
+          toastOptions={{
+            duration: 4000,
+            style: { fontSize: '1rem', fontFamily: 'inherit', maxWidth: 520 },
+          }}
+        />
       <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/main" element={<MainLandingPage />} />

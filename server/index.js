@@ -37,7 +37,10 @@ app.get('/api/health', (req, res) => {
   try {
     const pool = await createPool();
     // Keep the property name `mysql` internally to avoid breaking all repositories
-    app.locals.mysql = pool; 
+    app.locals.mysql = pool;
+    // Ensure booking table schema exists once at startup
+    const { ensureBookingSchema } = require('./repositories/bookingRepo');
+    await ensureBookingSchema(pool).catch(e => console.warn('bookingSchema:', e.message));
   } catch (e) {
     console.warn('Database pool connection failed:', e.message);
   }

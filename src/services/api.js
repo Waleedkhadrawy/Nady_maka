@@ -1,5 +1,38 @@
 const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 const BASE_URL = isProd ? '' : (process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001');
+const ERROR_MESSAGES_AR = {
+  invalid_payload: 'البيانات المرسلة غير مكتملة.',
+  invalid_email: 'البريد الإلكتروني غير صحيح.',
+  weak_password: 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
+  first_name_required: 'الاسم الأول مطلوب.',
+  last_name_required: 'الاسم الأخير مطلوب.',
+  user_exists: 'هذا البريد مسجل مسبقاً.',
+  invalid_credentials: 'بيانات الدخول غير صحيحة.',
+  name_required: 'الاسم مطلوب.',
+  invalid_phone: 'رقم الهاتف غير صحيح.',
+  invalid_phone_sa: 'رقم الجوال يجب أن يبدأ بـ 05 ويتكون من 10 أرقام.',
+  invalid_national_id: 'رقم الهوية/الإقامة يجب أن يتكون من 10 أرقام.',
+  gender_required: 'يرجى اختيار الجنس.',
+  dob_required: 'تاريخ الميلاد مطلوب.',
+  package_required: 'يرجى اختيار الباقة.',
+  age_not_eligible: 'العمر غير مؤهل لهذه الباقة.',
+  invalid_payment_method: 'طريقة الدفع غير مدعومة.',
+  package_not_found: 'الباقة المطلوبة غير موجودة.',
+  database_unavailable: 'الخدمة غير متاحة حالياً. حاول لاحقاً.',
+  forbidden: 'ليس لديك صلاحية لهذا الإجراء. سجّل دخول المشرف من لوحة التحكم.',
+  Unauthorized: 'يجب تسجيل الدخول أولاً.',
+  service_required: 'يرجى اختيار نوع الخدمة.',
+  invalid_scheduled_at: 'التاريخ والوقت غير صحيحَين.',
+  booking_in_past: 'لا يمكن الحجز في تاريخ مضى.',
+  booking_conflict: 'يوجد حجز آخر في نفس الوقت. يرجى اختيار وقت آخر.',
+  invalid_status: 'حالة غير صالحة.',
+  not_found: 'العنصر المطلوب غير موجود.',
+};
+
+function toFriendlyMessage(raw) {
+  const key = String(raw || '').trim();
+  return ERROR_MESSAGES_AR[key] || key || 'حدث خطأ غير متوقع.';
+}
 
 export function getToken() {
   return localStorage.getItem('admin_token');
@@ -34,7 +67,7 @@ async function request(path, options = {}) {
       if (parsed.message) msg = parsed.message;
       else if (parsed.error) msg = parsed.error;
     } catch (e) {}
-    throw new Error(msg || 'Request failed');
+    throw new Error(toFriendlyMessage(msg || 'Request failed'));
   }
   return res.status === 204 ? null : res.json();
 }

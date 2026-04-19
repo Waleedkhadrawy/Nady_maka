@@ -11,6 +11,12 @@ const { adminOnly } = require('../middleware/roles');
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
 }
+function isValidSaudiMobile(phone) {
+  return /^05\d{8}$/.test(String(phone || '').trim());
+}
+function isValidNationalId(id) {
+  return /^\d{10}$/.test(String(id || '').trim());
+}
 
 router.get('/', auth, adminOnly, async (req, res) => {
   try {
@@ -41,7 +47,10 @@ router.post('/public-register', rateLimiter({ windowMs: 60000, max: 30 }), requi
     if (!user || !membership) return res.status(400).json({ message: 'invalid payload' });
     if (!user.username || !String(user.username).trim()) return res.status(400).json({ message: 'name_required' });
     if (!user.email || !isValidEmail(user.email)) return res.status(400).json({ message: 'invalid_email' });
-    if (!user.phone || String(user.phone).replace(/\D/g, '').length < 8) return res.status(400).json({ message: 'invalid_phone' });
+    if (!user.phone || !isValidSaudiMobile(user.phone)) return res.status(400).json({ message: 'invalid_phone_sa' });
+    if (!user.nationalId || !isValidNationalId(user.nationalId)) return res.status(400).json({ message: 'invalid_national_id' });
+    if (!user.gender) return res.status(400).json({ message: 'gender_required' });
+    if (!user.dob) return res.status(400).json({ message: 'dob_required' });
     if (!membership.value) return res.status(400).json({ message: 'package_required' });
     if (membership.amount !== undefined && membership.amount !== null && Number(membership.amount) < 0) {
       return res.status(400).json({ message: 'invalid_amount' });
@@ -72,9 +81,32 @@ router.post('/public-register', rateLimiter({ windowMs: 60000, max: 30 }), requi
       const expiryDate = d.toISOString().slice(0,10);
 
       let customer = await repo.findCustomerByEmail(pool, user.email);
-      if (!customer) customer = await repo.createCustomer(pool, { name: user.username, email: user.email, phone: user.phone });
+      if (!customer) {
+        customer = await repo.createCustomer(pool, {
+          name: user.username,
+          email: user.email,
+          phone: user.phone,
+          national_id: user.nationalId,
+          job_title: user.jobTitle,
+          address: user.address,
+        });
+      }
       let member = await repo.findMemberByCustomerId(pool, customer.id);
-      if (!member) member = await repo.createMember(pool, { customer_id: customer.id, name: user.username, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, join_date: joinDate, type: 'primary' });
+      if (!member) {
+        member = await repo.createMember(pool, {
+          customer_id: customer.id,
+          name: user.username,
+          email: user.email,
+          phone: user.phone,
+          gender: user.gender,
+          dob: user.dob,
+          national_id: user.nationalId,
+          job_title: user.jobTitle,
+          address: user.address,
+          join_date: joinDate,
+          type: 'primary'
+        });
+      }
       if (pkg.allow_partner && partner && partner.name) {
         const existing = await repo.findPartnerByMemberId(pool, member.id);
         if (!existing) await repo.createPartner(pool, { member_id: member.id, name: partner.name, email: partner.email, birth_date: partner.birthDate, phone: partner.phone });
@@ -110,27 +142,34 @@ router.post('/public-register', rateLimiter({ windowMs: 60000, max: 30 }), requi
   }
 });
 
-module.exports = router;
-router.get('/:id/payments', async (req,res)=>{
-  try{
+// ─── Membership payments ────────────────────────────────────────────────────
+router.get('/:id/payments', auth, adminOnly, async (req, res) => {
+  try {
     const pool = req.app.locals.mysql;
+    if (!pool) return res.status(503).json({ message: 'database_unavailable' });
     const id = Number(req.params.id);
     const rows = await prepo.listPaymentsByMembership(pool, id);
     res.json(rows);
-  }catch(e){
+  } catch (e) {
     res.status(500).json({ message: e.message || 'Server error' });
   }
 });
 
-router.put('/:id/status', async (req,res)=>{
-  try{
+// ─── Update membership status ────────────────────────────────────────────────
+router.put('/:id/status', auth, adminOnly, async (req, res) => {
+  try {
     const pool = req.app.locals.mysql;
+    if (!pool) return res.status(503).json({ message: 'database_unavailable' });
     const id = Number(req.params.id);
     const { status } = req.body || {};
-    const row = await repo.updateMembershipStatus(pool, id, status || 'active');
-    if (!row) return res.status(404).json({ message: 'Not found' });
+    const allowed = ['active', 'pending', 'expired', 'cancelled', 'suspended'];
+    if (!allowed.includes(status)) return res.status(400).json({ message: 'invalid_status' });
+    const row = await repo.updateMembershipStatus(pool, id, status);
+    if (!row) return res.status(404).json({ message: 'not_found' });
     res.json(row);
-  }catch(e){
+  } catch (e) {
     res.status(400).json({ message: e.message || 'Invalid data' });
   }
 });
+
+module.exports = router;

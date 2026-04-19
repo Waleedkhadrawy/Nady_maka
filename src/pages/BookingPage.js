@@ -18,6 +18,7 @@ const BookingPage = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const services = [
+    'مقابلة',
     'استشارة تدريبية',
     'تقييم اللياقة البدنية',
     'جلسة تدريب شخصي',
@@ -26,18 +27,17 @@ const BookingPage = () => {
   ];
 
   const timeSlots = [
-    { label: '09:00 صباحاً', value: '09:00:00' },
-    { label: '10:00 صباحاً', value: '10:00:00' },
-    { label: '11:00 صباحاً', value: '11:00:00' },
-    { label: '12:00 ظهراً', value: '12:00:00' },
-    { label: '01:00 مساءً', value: '13:00:00' },
-    { label: '02:00 مساءً', value: '14:00:00' },
-    { label: '03:00 مساءً', value: '15:00:00' },
-    { label: '04:00 مساءً', value: '16:00:00' },
     { label: '05:00 مساءً', value: '17:00:00' },
+    { label: '05:30 مساءً', value: '17:30:00' },
     { label: '06:00 مساءً', value: '18:00:00' },
+    { label: '06:30 مساءً', value: '18:30:00' },
     { label: '07:00 مساءً', value: '19:00:00' },
-    { label: '08:00 مساءً', value: '20:00:00' }
+    { label: '07:30 مساءً', value: '19:30:00' },
+    { label: '08:00 مساءً', value: '20:00:00' },
+    { label: '08:30 مساءً', value: '20:30:00' },
+    { label: '09:00 مساءً', value: '21:00:00' },
+    { label: '09:30 مساءً', value: '21:30:00' },
+    { label: '10:00 مساءً', value: '22:00:00' }
   ];
 
   const handleInputChange = (e) => {
@@ -91,6 +91,7 @@ const BookingPage = () => {
               <Card className="shadow">
                 <Card.Header className="bg-primary text-white">
                   <h4 className="mb-0">نموذج حجز الموعد</h4>
+                  <small className="d-block mt-2">1) اختر الخدمة  2) حدد التاريخ والوقت  3) أكمل بياناتك ثم أرسل الطلب</small>
                 </Card.Header>
                 <Card.Body>
                   <Form onSubmit={handleSubmit}>
@@ -118,18 +119,20 @@ const BookingPage = () => {
                             onChange={handleInputChange}
                             required
                             placeholder="05xxxxxxxx"
+                            pattern="05\d{8}"
                           />
                         </Form.Group>
                       </Col>
                     </Row>
 
                     <Form.Group className="mb-3">
-                      <Form.Label>البريد الإلكتروني</Form.Label>
+                      <Form.Label>البريد الإلكتروني *</Form.Label>
                       <Form.Control
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
+                        required
                         placeholder="example@email.com"
                       />
                     </Form.Group>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 import { api } from '../../services/api';
 import toast from 'react-hot-toast';
@@ -12,13 +13,53 @@ export default function PackagesPage(){
   const load = async () => { setLoading(true); try{ const r=await api.listMembershipPackages(); setRows(r);} finally{ setLoading(false);} };
   useEffect(()=>{ load(); },[]);
 
-  const submit = async (e) => { e.preventDefault(); try{ const payload = { ...form, period_days: Number(form.period_days), allow_partner: !!form.allow_partner, min_age: form.min_age !== '' ? Number(form.min_age) : null, max_age: form.max_age !== '' ? Number(form.max_age) : null }; if(editingId){ await api.updateMembershipPackage(editingId, payload); } else { await api.createMembershipPackage(payload); } setForm({ code:'', label:'', price:'', currency:'SAR', period_days:'', kind:'individual', segment:'adult', active:true, allow_partner:false, min_age:'', max_age:'' }); setEditingId(null); load(); }catch (err) { toast.error(err.message || 'تعذر الحفظ'); } };
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const payload = {
+        ...form,
+        period_days: Number(form.period_days),
+        allow_partner: !!form.allow_partner,
+        min_age: form.min_age !== '' ? Number(form.min_age) : null,
+        max_age: form.max_age !== '' ? Number(form.max_age) : null,
+      };
+      if (editingId) {
+        await api.updateMembershipPackage(editingId, payload);
+        toast.success('تم تحديث الباقة');
+      } else {
+        await api.createMembershipPackage(payload);
+        toast.success('تمت إضافة الباقة — ستظهر للعملاء بعد التحديث');
+      }
+      setForm({
+        code: '',
+        label: '',
+        price: '',
+        currency: 'SAR',
+        period_days: '',
+        kind: 'individual',
+        segment: 'adult',
+        active: true,
+        allow_partner: false,
+        min_age: '',
+        max_age: '',
+      });
+      setEditingId(null);
+      load();
+    } catch (err) {
+      toast.error(err.message || 'تعذر الحفظ');
+    }
+  };
   const startEdit = (r) => { setEditingId(r.id); setForm({ code:r.code, label:r.label, price:r.price||'', currency:r.currency||'SAR', period_days:String(r.period_days), kind:r.kind||'individual', segment:r.segment, active: !!r.active, allow_partner: !!r.allow_partner, min_age: r.min_age ?? '', max_age: r.max_age ?? '' }); };
   const remove = async (id) => { if(!window.confirm('حذف الباقة؟')) return; try{ await api.deleteMembershipPackage(id); load(); }catch (err) { toast.error(err.message || 'تعذر الحذف'); } };
 
   return (
     <AdminLayout>
       <h2>إدارة باقات العضوية</h2>
+      <div className="alert alert-info border-0 rounded-3 mb-3" role="status">
+        <strong>تدفق الموافقة:</strong> طلبات العملاء من الموقع تذهب إلى{' '}
+        <Link to="/admin/orders">إدارة الطلبات</Link> لقبولها أو رفضها. إضافة باقة هنا لا يُنشئ طلباً تلقائياً — فقط يعرضها للاختيار في
+        نموذج العضوية.
+      </div>
       <form onSubmit={submit} style={{ display:'grid', gap:8, gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', background:'#fff', padding:16, borderRadius:8, marginBottom:16 }}>
         <input required placeholder="الكود" value={form.code} onChange={e=>setForm({...form,code:e.target.value})} />
         <input required placeholder="الاسم" value={form.label} onChange={e=>setForm({...form,label:e.target.value})} />

@@ -3,3 +3,28 @@
  .login-hero .container { position: relative; z-index: 2; }
  .login-title { color: #fff; font-weight: 800; font-size: 2.25rem; margin: 0; }
  .login-subtitle { color: #e5e7eb; font-size: 1.125rem; margin-top: 8px; }
+
+.login-page .card {
+  border: 0;
+  border-radius: 18px;
+  animation: loginFadeUp 0.45s ease;
+}
+
+.login-page .card:hover {
+  transform: translateY(-3px);
+  transition: transform 0.25s ease;
+}
+
+.login-page .btn-primary {
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.login-page .form-control {
+  border-radius: 10px;
+}
+
+@keyframes loginFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}

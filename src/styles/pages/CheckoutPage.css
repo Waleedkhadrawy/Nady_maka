@@ -1,0 +1,125 @@
+/* Checkout — واضح، مريح، بدون تداخل مع الهيدر */
+.checkout-page {
+  min-height: calc(100vh - 120px);
+  padding-bottom: 3rem;
+  animation: checkoutFade 0.45s ease;
+}
+
+.checkout-page .checkout-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.checkout-page .checkout-hero h1 {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+.checkout-page .checkout-hero p {
+  color: #64748b;
+  font-size: 1.05rem;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.checkout-page .checkout-card {
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.checkout-page .checkout-card:hover {
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.1);
+}
+
+.checkout-page .checkout-card .card-body {
+  padding: 1.5rem 1.75rem;
+}
+
+.checkout-page .package-highlight {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f8fafc 100%);
+  border: 1px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.checkout-page .package-highlight .pkg-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #14532d;
+  margin-bottom: 0.35rem;
+}
+
+.checkout-page .package-highlight .pkg-meta {
+  font-size: 0.95rem;
+  color: #166534;
+}
+
+.checkout-page .summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 1rem;
+}
+
+.checkout-page .summary-row:last-of-type {
+  border-bottom: none;
+  font-weight: 700;
+  padding-top: 0.85rem;
+}
+
+.checkout-page .summary-row span:first-child {
+  color: #64748b;
+}
+
+.checkout-page .summary-row span:last-child {
+  color: #0f172a;
+  text-align: left;
+}
+
+.checkout-page .btn-confirm {
+  border-radius: 12px;
+  font-weight: 800;
+  padding: 0.85rem 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.checkout-page .btn-outline-muted {
+  border-radius: 10px;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.checkout-page .checkout-card .form-control {
+  border-radius: 12px;
+  min-height: 120px;
+}
+
+/* لا نرفع البطاقة كثيراً حتى لا يزعج العميل */
+.checkout-page .checkout-card:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes checkoutFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-page .checkout-card .card-body {
+    padding: 1.15rem;
+  }
+}

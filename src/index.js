@@ -7,6 +7,7 @@ import './styles/components/sections.css';
 import './styles/components/Images.css';
 import './styles/components/Typography.css';
 import './styles/components/Layout.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 

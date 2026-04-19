@@ -34,6 +34,7 @@
   border: none;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
 }
 
 .booking-page .card-header {
@@ -44,6 +45,10 @@
 
 .booking-page .card-body {
   padding: 2rem;
+}
+
+.booking-page .card-header small {
+  opacity: 0.9;
 }
 
 .booking-page .form-label {
@@ -78,6 +83,10 @@
 .booking-page .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
+}
+
+.booking-page .btn-primary:active {
+  transform: translateY(0);
 }
 
 /* Contact Info Section */

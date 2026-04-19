@@ -7,6 +7,20 @@ const auth = require('../middleware/auth');
 const { adminOnly } = require('../middleware/roles');
 const { requireFields } = require('../middleware/validate');
 const { rateLimiter } = require('../middleware/rateLimiter');
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+}
+function isValidSaudiMobile(phone) {
+  return /^05\d{8}$/.test(String(phone || '').trim());
+}
+function isValidNationalId(id) {
+  return /^\d{10}$/.test(String(id || '').trim());
+}
+function normalizePaymentMethod(method) {
+  const value = String(method || '').trim().toLowerCase();
+  if (value === 'manual') return 'cash';
+  return value || 'cash';
+}
 
 router.post('/checkout', rateLimiter({ windowMs: 60000, max: 20 }), requireFields(['user','membership']), async (req,res)=>{
   try{
@@ -14,6 +28,17 @@ router.post('/checkout', rateLimiter({ windowMs: 60000, max: 20 }), requireField
     const body = req.body || {};
     const { user, partner, membership, amount, currency, method, note, ref } = body;
     if (!user || !membership) return res.status(400).json({ message: 'invalid payload' });
+    if (!user.username || !String(user.username).trim()) return res.status(400).json({ message: 'name_required' });
+    if (!user.email || !isValidEmail(user.email)) return res.status(400).json({ message: 'invalid_email' });
+    if (!user.phone || !isValidSaudiMobile(user.phone)) return res.status(400).json({ message: 'invalid_phone_sa' });
+    if (!user.nationalId || !isValidNationalId(user.nationalId)) return res.status(400).json({ message: 'invalid_national_id' });
+    if (!user.gender) return res.status(400).json({ message: 'gender_required' });
+    if (!user.dob) return res.status(400).json({ message: 'dob_required' });
+    if (!membership.value) return res.status(400).json({ message: 'package_required' });
+    const paymentMethod = normalizePaymentMethod(method || body?.payment?.method);
+    if (!['cash', 'card', 'bank_transfer'].includes(paymentMethod)) {
+      return res.status(400).json({ message: 'invalid_payment_method' });
+    }
     const pkg = await mrepo.getPackageByCode(pool, membership.value);
     if (!pkg) return res.status(400).json({ message: 'package not found' });
     const calcAge = (dob)=>{
@@ -32,9 +57,32 @@ router.post('/checkout', rateLimiter({ windowMs: 60000, max: 20 }), requireField
     }
     const today = new Date().toISOString().slice(0,10);
     let customer = await mrepo.findCustomerByEmail(pool, user.email);
-    if (!customer) customer = await mrepo.createCustomer(pool, { name: user.username, email: user.email, phone: user.phone });
+    if (!customer) {
+      customer = await mrepo.createCustomer(pool, {
+        name: user.username,
+        email: user.email,
+        phone: user.phone,
+        national_id: user.nationalId,
+        job_title: user.jobTitle,
+        address: user.address
+      });
+    }
     let member = await mrepo.findMemberByCustomerId(pool, customer.id);
-    if (!member) member = await mrepo.createMember(pool, { customer_id: customer.id, name: user.username, email: user.email, phone: user.phone, gender: user.gender, dob: user.dob, join_date: today, type: 'primary' });
+    if (!member) {
+      member = await mrepo.createMember(pool, {
+        customer_id: customer.id,
+        name: user.username,
+        email: user.email,
+        phone: user.phone,
+        gender: user.gender,
+        dob: user.dob,
+        national_id: user.nationalId,
+        job_title: user.jobTitle,
+        address: user.address,
+        join_date: today,
+        type: 'primary'
+      });
+    }
     if (pkg.allow_partner && partner && partner.name) {
       const existing = await mrepo.findPartnerByMemberId(pool, member.id);
       if (!existing) await mrepo.createPartner(pool, { member_id: member.id, name: partner.name, email: partner.email, birth_date: partner.birthDate, phone: partner.phone });
@@ -48,19 +96,22 @@ router.post('/checkout', rateLimiter({ windowMs: 60000, max: 20 }), requireField
       status: 'pending',
       amount: amount || 0,
       currency: currency || 'SAR',
-      payment_method: method || 'manual',
+      payment_method: paymentMethod,
       provider: null,
       provider_ref: ref || null,
       expires_at: null,
     });
-    const pay = await prepo.createPayment(pool, { membership_id: created.id, amount: amount || 0, currency: currency || 'SAR', method: method || 'manual', status: 'initiated', ref: ref || null });
-    if ((method||'manual') === 'manual'){
-      await prepo.updatePaymentStatus(pool, pay.id, 'paid');
-      await orepo.updateOrderStatus(pool, order.id, 'paid');
-      await mrepo.updateMembershipStatus(pool, created.id, 'active');
-      return res.status(201).json({ id: created.id, orderId: order.id, status: 'active', joinDate: created.join_date, expiryDate: created.expiry_date, paymentId: pay.id });
-    }
-    res.status(201).json({ id: created.id, orderId: order.id, status: 'pending', paymentId: pay.id, payment_url: '#'});
+    const pay = await prepo.createPayment(pool, { membership_id: created.id, amount: amount || 0, currency: currency || 'SAR', method: paymentMethod, status: 'initiated', ref: ref || null });
+    // كل الطرق تبقى قيد المراجعة حتى يوافق الأدمن من «إدارة الطلبات» (أو Webhook للدفع الإلكتروني)
+    res.status(201).json({
+      id: created.id,
+      orderId: order.id,
+      status: 'pending',
+      joinDate: created.join_date,
+      expiryDate: created.expiry_date,
+      paymentId: pay.id,
+      payment_url: paymentMethod === 'card' ? '#' : null,
+    });
   }catch(e){
     res.status(400).json({ message: e.message || 'Invalid data' });
   }

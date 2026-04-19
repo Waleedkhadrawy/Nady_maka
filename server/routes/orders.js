@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const orepo = require('../repositories/orderRepo');
+const mrepo = require('../repositories/membershipRepo');
+const prepo = require('../repositories/paymentRepo');
 const auth = require('../middleware/auth');
 const { adminOnly } = require('../middleware/roles');
 const { rateLimiter } = require('../middleware/rateLimiter');
@@ -44,7 +46,19 @@ router.put('/:id/status', auth, adminOnly, async (req,res)=>{
     const id = parseInt(req.params.id||'0');
     const status = String((req.body||{}).status||'');
     if (!id || !status){ return res.status(400).json({ message: 'invalid_payload' }); }
+    const before = await orepo.getOrderById(pool, id);
     const row = await orepo.updateOrderStatus(pool, id, status);
+    if (before && row && String(before.subject_type) === 'main_membership' && before.subject_id) {
+      const mid = Number(before.subject_id);
+      if (status === 'paid') {
+        await mrepo.updateMembershipStatus(pool, mid, 'active');
+        const pays = await prepo.listPaymentsByMembership(pool, mid);
+        const pendingPay = pays.find(p => String(p.status).toLowerCase() === 'initiated') || pays[0];
+        if (pendingPay) await prepo.updatePaymentStatus(pool, pendingPay.id, 'paid');
+      } else if (status === 'cancelled' || status === 'failed') {
+        await mrepo.updateMembershipStatus(pool, mid, 'cancelled');
+      }
+    }
     res.json(row||{});
   }catch(e){ res.status(400).json({ message: e.message || 'invalid_data' }); }
 });

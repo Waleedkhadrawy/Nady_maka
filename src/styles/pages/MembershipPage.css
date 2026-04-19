@@ -4,6 +4,24 @@
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
+.membership-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.membership-stepper .step-chip {
+  font-size: 0.9rem;
+  padding: 0.55rem 0.9rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.membership-stepper .step-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
 /* Hero Section */
 .membership-page .hero-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -92,6 +110,10 @@
   z-index: 2;
 }
 
+.membership-page .form-step {
+  animation: fadeSlideIn 0.35s ease;
+}
+
 .membership-page .card-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -178,7 +200,7 @@
   font-weight: 700;
   font-size: 1.1rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
@@ -289,6 +311,15 @@
   box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
 }
 
+.membership-page .form-control.is-invalid,
+.membership-page .form-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.membership-page .invalid-feedback {
+  font-size: 0.84rem;
+}
+
 /* Popular Card Special Effects */
 .membership-page .border-success {
   border: 3px solid #28a745 !important;
@@ -348,3 +379,14 @@
 }
 /* Form spacing tweaks */
 .membership-page h1 { font-weight: 800; }
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
