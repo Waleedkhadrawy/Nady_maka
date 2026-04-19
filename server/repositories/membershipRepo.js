@@ -1,11 +1,11 @@
 async function ensureProfileSchema(pool){
-  const [customerCols] = await pool.query("SHOW COLUMNS FROM customers");
+  const [customerCols] = await pool.query("SELECT column_name AS \"Field\" FROM information_schema.columns WHERE table_name = 'customers'");
   const haveCustomer = new Set(customerCols.map(c => c.Field));
   if (!haveCustomer.has('national_id')) await pool.query('ALTER TABLE customers ADD COLUMN national_id VARCHAR(32) NULL');
   if (!haveCustomer.has('job_title')) await pool.query('ALTER TABLE customers ADD COLUMN job_title VARCHAR(128) NULL');
   if (!haveCustomer.has('address')) await pool.query('ALTER TABLE customers ADD COLUMN address VARCHAR(255) NULL');
 
-  const [memberCols] = await pool.query("SHOW COLUMNS FROM members");
+  const [memberCols] = await pool.query("SELECT column_name AS \"Field\" FROM information_schema.columns WHERE table_name = 'members'");
   const haveMember = new Set(memberCols.map(c => c.Field));
   if (!haveMember.has('national_id')) await pool.query('ALTER TABLE members ADD COLUMN national_id VARCHAR(32) NULL');
   if (!haveMember.has('job_title')) await pool.query('ALTER TABLE members ADD COLUMN job_title VARCHAR(128) NULL');

@@ -1,347 +1,200 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
 import '../styles/pages/HomePage.css';
-import '../styles/components/ServicesSection.css';
-import '../styles/components/TutorialVideos.css';
-import '../styles/components/FeaturedVideo.css';
-import '../styles/components/GallerySection.css';
-import '../styles/components/AttractiveImageSection.css';
-import '../styles/components/MainContentSection.css';
-import '../styles/components/FitnessTimeStyle.css';
 
-// Videos placeholders (avoid external blocked URLs)
-const heroVideo = `${process.env.PUBLIC_URL}/videos/1.mp4`; // مسار آمن بالنسبة للجذر
+const heroVideo = `${process.env.PUBLIC_URL}/videos/1.mp4`;
 
 const HomePage = () => {
   return (
-    <div className="home-page fitness-time-style">
-      {/* Hero Section - Fitness Time Style */}
-      <section className="hero-section-ft">
-        <div className="hero-video-container">
-          <video autoPlay muted loop playsInline preload="metadata" className="hero-video">
+    <div className="home-page">
+      {/* Hero Section */}
+      <section className="hero-premium">
+        <div className="hero-video-wrap">
+          <video autoPlay muted loop playsInline preload="metadata">
             <source src={heroVideo} type="video/mp4" />
           </video>
-          <div className="hero-overlay"></div>
+          <div className="hero-overlay-gradient"></div>
         </div>
-        <Container>
-          <div className="hero-content">
-            <h1 className="hero-title">أهلاً وسهلاً بك في نادي مكه يارد الرياضي!</h1>
-            <p className="hero-subtitle">النادي الصحي والرياضي الأول والأفخم في السعوديه</p>
-            <div className="hero-buttons">
-              <Button as={Link} to="/membership" className="btn-join-now">
-                انضم الآن
-              </Button>
-              <Button as={Link} to="/booking" variant="outline-light" className="btn-book-appointment">
-                احجز موعد
-              </Button>
-            </div>
+        
+        <Container className="hero-content reveal-up">
+          <div className="section-badge bg-dark text-white mx-auto border border-secondary mb-4">
+            <i className="bi bi-star-fill text-warning"></i> 
+            <span>النادي الرياضي الأفخم في السعودية</span>
+          </div>
+          <h1 className="hero-title">
+            أهلاً وسهلاً بك في <span className="text-primary d-inline-block">نادي مكة يارد</span>
+          </h1>
+          <p className="hero-subtitle">
+            اكتشف إمكانياتك وحقق أهدافك الرياضية والصحية في بيئة تدريبية احترافية، مجهزة بأحدث التقنيات والمدربين المعتمدين لتجربة لا مثيل لها.
+          </p>
+          <div className="hero-actions mt-4">
+            <Link to="/membership" className="btn-premium px-4 py-3 fs-5">
+              انضم إلينا الآن <i className="bi bi-arrow-left mt-1"></i>
+            </Link>
+            <Link to="/booking" className="btn-outline-premium bg-dark text-white border-white px-4 py-3 fs-5" style={{ '--primary-dark': 'white' }}>
+              احجز موعد <i className="bi bi-calendar-check mt-1"></i>
+            </Link>
           </div>
         </Container>
       </section>
       
-      {/* Main Services Section - Fitness Time Style */}
-      <section className="main-services-section-ft">
+      {/* Services Grid */}
+      <section className="home-services section-padding">
         <Container>
-          <div className="services-header-ft">
-            <h2 className="services-title-ft">اشعر بالفرق!</h2>
-            <p className="services-subtitle-ft">
-              أطلق إمكاناتك مع دروس التمارين الجماعية المثيرة! انضم إلى المتحمسين ذوي التفكير المماثل، 
-              مدفوعين بالصداقة الحماسية ويقودهم أساتذة اللياقة البدنية المعتمدون.
+          <div className="section-title-wrapper reveal-up">
+            <div className="section-badge">
+              <i className="bi bi-lightning-charge-fill"></i> اشعر بالفرق
+            </div>
+            <h2>خدماتنا المتكاملة</h2>
+            <p className="lead mx-auto" style={{ maxWidth: 700 }}>
+              أطلق إمكاناتك مع برامج التمارين الجماعية والتدريب الشخصي! انضم إلى عائلتنا الرياضية لتحقيق أفضل النتائج.
             </p>
           </div>
           
-          <div className="main-services-grid-ft">
-            <div className="service-card-ft" onClick={() => window.location.href='/academies'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-graduation-cap"></i>
-              </div>
-              <h3>الأكاديميات</h3>
-              <p>برامج تدريبية متخصصة لجميع الأعمار</p>
-            </div>
-            
-            <div className="service-card-ft" onClick={() => window.location.href='/booking'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-calendar-check"></i>
-              </div>
-              <h3>حجز موعد</h3>
-              <p>احجز جلستك التدريبية بسهولة</p>
-            </div>
-            
-            <div className="service-card-ft" onClick={() => window.location.href='/membership'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-user-plus"></i>
-              </div>
-              <h3>الانضمام للعضوية</h3>
-              <p>انضم إلى عائلة مكة يارد الرياضية</p>
-            </div>
-            
-            <div className="service-card-ft" onClick={() => window.location.href='/pricing'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-tags"></i>
-              </div>
-              <h3>الأسعار</h3>
-              <p>باقات متنوعة تناسب جميع الاحتياجات</p>
-            </div>
-            
-            <div className="service-card-ft" onClick={() => window.location.href='/login'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-sign-in-alt"></i>
-              </div>
-              <h3>تسجيل الدخول</h3>
-              <p>ادخل إلى حسابك الشخصي</p>
-            </div>
-            
-            <div className="service-card-ft" onClick={() => window.location.href='/trainer-evaluation'}>
-              <div className="service-icon-ft">
-                <i className="fas fa-star"></i>
-              </div>
-              <h3>تقييم المدرب</h3>
-              <p>قيم تجربتك مع مدربينا المحترفين</p>
-            </div>
-          </div>
-          
-          <div className="stats-section-ft">
-            <div className="stat-item-ft">
-              <div className="stat-number-ft">20+</div>
-              <div className="stat-label-ft">برنامج</div>
-              <div className="stat-desc-ft">عبر نوادي مكة يارد</div>
-            </div>
-            <div className="stat-item-ft">
-              <div className="stat-number-ft">20,000+</div>
-              <div className="stat-label-ft">حصة</div>
-              <div className="stat-desc-ft">مجدولة شهرياً</div>
-            </div>
-          </div>
-        </Container>
-      </section>
-      
-      {/* Featured Videos Section - Fitness Time Style */}
-      <section className="featured-videos-section-ft">
-        <Container>
-          <div className="videos-header-ft">
-            <h2 className="videos-title-ft">مرافق 5 نجوم</h2>
-            <p className="videos-subtitle-ft">اكتشف مرافقنا المتطورة وتجربة مكة يارد الفريدة</p>
-          </div>
-          
-          <Row className="videos-grid-ft">
-            <Col lg={4} md={6} className="mb-4">
-              <div className="video-card-ft">
-                <div className="video-container-ft">
-                  <video controls className="video-player-ft">
-                    <source src={heroVideo} type="video/mp4" />
-                  </video>
-                  <div className="video-overlay-ft">
-                    <i className="fas fa-play-circle"></i>
-                  </div>
-                </div>
-                <div className="video-info-ft">
-                  <h4>الفيديو الرئيسي</h4>
-                  <p>جولة شاملة في مرافق مكة يارد</p>
-                </div>
-              </div>
+          <Row className="g-4">
+            {/* Feature 1 */}
+            <Col lg={4} md={6}>
+              <Link to="/academy" className="feature-card reveal-up" style={{ animationDelay: '0.1s' }}>
+                <div className="feature-icon"><i className="bi bi-mortarboard-fill"></i></div>
+                <h3>الأكاديميات</h3>
+                <p>برامج تدريبية متخصصة لجميع الأعمار لتطوير المهارات الرياضية بأسس علمية صحيحة.</p>
+              </Link>
             </Col>
-            
-            <Col lg={4} md={6} className="mb-4">
-              <div className="video-card-ft">
-                <div className="video-container-ft">
-                  <video controls className="video-player-ft" poster="/images/video-thumb.svg">
-                    {/* مصدر الفيديو سيضاف لاحقًا */}
-                  </video>
-                  <div className="video-overlay-ft">
-                    <i className="fas fa-play-circle"></i>
-                  </div>
-                </div>
-                <div className="video-info-ft">
-                  <h4>فيديو النادي كامل</h4>
-                  <p>استكشف جميع أقسام النادي ومرافقه</p>
-                </div>
-              </div>
+            {/* Feature 2 */}
+            <Col lg={4} md={6}>
+              <Link to="/booking" className="feature-card reveal-up" style={{ animationDelay: '0.2s' }}>
+                <div className="feature-icon"><i className="bi bi-calendar2-check-fill"></i></div>
+                <h3>حجز المواعيد</h3>
+                <p>نظام إلكتروني سهل وسريع يتيح لك تنظيم أوقات تمرينك وجلساتك مع المدربين الشخصيين.</p>
+              </Link>
             </Col>
-            
-            <Col lg={4} md={6} className="mb-4">
-              <div className="video-card-ft">
-                <div className="video-container-ft">
-                  <video controls className="video-player-ft" poster="/images/video-thumb.svg">
-                    {/* مصدر الفيديو سيضاف لاحقًا */}
-                  </video>
-                  <div className="video-overlay-ft">
-                    <i className="fas fa-play-circle"></i>
-                  </div>
-                </div>
-                <div className="video-info-ft">
-                  <h4>فيديو بصوت لمكة كامل</h4>
-                  <p>تعرف على قصة مكة يارد وأهدافها</p>
-                </div>
-              </div>
+            {/* Feature 3 */}
+            <Col lg={4} md={6}>
+              <Link to="/membership" className="feature-card reveal-up" style={{ animationDelay: '0.3s' }}>
+                <div className="feature-icon"><i className="bi bi-person-vcard-fill"></i></div>
+                <h3>الاشتراكات</h3>
+                <p>باقات عضوية مرنة ومدروسة لتناسب مختلف الاحتياجات بأسعار تنافسية ومزايا حصرية.</p>
+              </Link>
+            </Col>
+            {/* Feature 4 */}
+            <Col lg={4} md={6}>
+              <Link to="/pricing" className="feature-card reveal-up" style={{ animationDelay: '0.4s' }}>
+                <div className="feature-icon"><i className="bi bi-tags-fill"></i></div>
+                <h3>الأسعار والعروض</h3>
+                <p>اطلع على جميع تفاصيل الباقات والبرامج المتاحة حالياً لنادي مكة يارد.</p>
+              </Link>
+            </Col>
+            {/* Feature 5 */}
+            <Col lg={4} md={6}>
+              <Link to="/trainer-evaluation" className="feature-card reveal-up" style={{ animationDelay: '0.5s' }}>
+                <div className="feature-icon"><i className="bi bi-star-fill"></i></div>
+                <h3>تقييم المدربين</h3>
+                <p>ساهم في رفع جودة الخدمات بتزويدنا برأيك وتجربتك المهنية مع طاقم التدريب.</p>
+              </Link>
+            </Col>
+            {/* Feature 6 */}
+            <Col lg={4} md={6}>
+              <Link to="/contact" className="feature-card reveal-up" style={{ animationDelay: '0.6s' }}>
+                <div className="feature-icon"><i className="bi bi-chat-right-text-fill"></i></div>
+                <h3>تواصل معنا</h3>
+                <p>فريق الدعم متاح للإجابة على استفساراتك وتقديم المساعدة في أي وقت.</p>
+              </Link>
             </Col>
           </Row>
-        </Container>
-      </section>
-      
-      {/* Facilities Showcase Section */}
-      <section className="facilities-showcase-ft">
-        <Container>
-          <div className="facilities-content">
-            <div className="facility-image">
-              <img 
-                src="/images/fitness.svg" 
-                alt="مرافق مكة يارد المتطورة" 
-                className="facility-main-image"
-              />
-              <div className="image-overlay">
-                <div className="overlay-content">
-                  <h3>فرص للتواصل ومسابقات ممتعة</h3>
-                  <p>انضم إلينا واستمتع بتجربة فريدة ومميزة</p>
-                  <button className="cta-button">
-                    <i className="fas fa-arrow-left"></i>
-                    اكتشف المزيد
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </Container>
       </section>
 
-      {/* Premium Gallery Section */}
-      <section className="section premium-gallery-section">
+      {/* Stats Band */}
+      <section className="stats-band">
         <Container>
-          <div className="gallery-header text-center mb-5">
-            <div className="section-badge mx-auto mb-3">
-              <i className="fas fa-camera"></i>
-              <span>معرض مكة يارد</span>
+          <Row className="g-4 text-center">
+            <Col md={4} className="stat-box">
+              <div className="stat-number">20+</div>
+              <div className="stat-label">برنامج رياضي</div>
+              <div className="stat-desc">متنوع ومصمم باحترافية</div>
+            </Col>
+            <Col md={4} className="stat-box">
+              <div className="stat-number">20k</div>
+              <div className="stat-label">حصة شهرية</div>
+              <div className="stat-desc">مجدولة ومنتظمة للأعضاء</div>
+            </Col>
+            <Col md={4} className="stat-box">
+              <div className="stat-number">24/7</div>
+              <div className="stat-label">مرافق متاحة</div>
+              <div className="stat-desc">أجهزة حديثة تعمل في بيئة نظيفة</div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* Media Gallery / Featured Showcases */}
+      <section className="section-padding bg-main">
+        <Container>
+          <div className="section-title-wrapper">
+            <div className="section-badge border border-primary">
+              <i className="bi bi-camera-fill"></i> معرض مكة يارد
             </div>
-            <h2 className="gallery-title">
-              🏆 <span className="highlight">مرافقنا المتميزة</span> في صور 🏆
-            </h2>
-            <p className="gallery-subtitle">
-              استكشف أحدث المرافق الرياضية والتجهيزات العالمية التي نوفرها لأعضائنا الكرام
+            <h2>مرافق وتجهيزات خمس نجوم 🏆</h2>
+            <p className="lead mx-auto" style={{ maxWidth: 700 }}>
+              استكشف أحدث المرافق الرياضية والتجهيزات العالمية التي نوفرها لأعضائنا الكرام بالأسفل.
             </p>
           </div>
           
-          <Row className="premium-gallery-grid">
-            <Col lg={6} md={6} className="mb-4">
-              <div className="premium-gallery-item main-feature">
-                <div className="image-container">
-                  <img 
-                    src="https://makkahyard.com/wp-content/uploads/2024/12/6.jpeg" 
-                    alt="حمام السباحة المتطور" 
-                    className="img-fluid"
-                  />
-                  <div className="image-overlay">
-                    <div className="overlay-content">
-                      <div className="feature-badge">
-                        <i className="fas fa-swimming-pool"></i>
-                        <span>مرفق مميز</span>
-                      </div>
-                      <h3>حمام السباحة المتطور</h3>
-                      <p>حمام سباحة أولمبي بأحدث أنظمة التنقية والتدفئة</p>
-                      <div className="feature-stats">
-                        <span><i className="fas fa-thermometer-half"></i> تدفئة ذكية</span>
-                        <span><i className="fas fa-shield-alt"></i> أمان عالي</span>
-                      </div>
-                    </div>
-                  </div>
+          <Row className="g-4">
+            <Col lg={6} md={12}>
+              <div className="media-card hover-lift">
+                <img src="https://makkahyard.com/wp-content/uploads/2024/12/6.jpeg" alt="Olympic Pool" />
+                <div className="media-icon-top"><i className="bi bi-water"></i></div>
+                <div className="media-overlay">
+                  <span className="badge-premium mb-2">مرفق مميز</span>
+                  <h4>مسبح مكة يارد المتطور</h4>
+                  <p><i className="bi bi-check-circle-fill text-primary"></i> مساحة تدريب واسعة مع أنظمة تعقيم متقدمة وتدريب متخصص.</p>
+                </div>
+              </div>
+            </Col>
+
+            <Col lg={6} md={12}>
+              <div className="media-card hover-lift">
+                <img src="https://makkahyard.com/wp-content/uploads/2024/12/5.jpeg" alt="Gym Area" />
+                <div className="media-icon-top"><i className="bi bi-usb-drive-fill"></i></div>
+                <div className="media-overlay">
+                  <span className="badge-premium mb-2">منطقة الآلات</span>
+                  <h4>صالة الأجهزة المتكاملة</h4>
+                  <p><i className="bi bi-check-circle-fill text-primary"></i> أجهزة عالمية، مساحات مدروسة، وتهوية ممتازة.</p>
                 </div>
               </div>
             </Col>
             
-            <Col lg={6} md={6} className="mb-4">
-              <div className="premium-gallery-item">
-                <div className="image-container">
-                  <img 
-                    src="https://makkahyard.com/wp-content/uploads/2024/12/5.jpeg" 
-                    alt="صالة الألعاب الرياضية" 
-                    className="img-fluid"
-                  />
-                  <div className="image-overlay">
-                    <div className="overlay-content">
-                      <div className="feature-badge">
-                        <i className="fas fa-dumbbell"></i>
-                        <span>تجهيزات حديثة</span>
-                      </div>
-                      <h3>صالة الألعاب المتكاملة</h3>
-                      <p>أجهزة رياضية عالمية وبرامج تدريبية متخصصة</p>
-                      <div className="feature-stats">
-                        <span><i className="fas fa-clock"></i> 24/7</span>
-                        <span><i className="fas fa-users"></i> مدربين محترفين</span>
-                      </div>
-                    </div>
-                  </div>
+            <Col lg={6} md={12}>
+              <div className="media-card hover-lift">
+                <img src="https://makkahyard.com/wp-content/uploads/2024/12/4.jpeg" alt="Personal Training" />
+                <div className="media-icon-top"><i className="bi bi-person-vcard"></i></div>
+                <div className="media-overlay">
+                  <span className="badge-premium mb-2">تدريب شخصي</span>
+                  <h4>منطقة التدريب الخاص</h4>
+                  <p><i className="bi bi-check-circle-fill text-primary"></i> جلسات 1on1 مع خبراء مرخصين لتحقيق أهدافك الخاصة.</p>
                 </div>
               </div>
             </Col>
             
-            <Col lg={6} md={6} className="mb-4">
-              <div className="premium-gallery-item">
-                <div className="image-container">
-                  <img 
-                    src="https://makkahyard.com/wp-content/uploads/2024/12/4.jpeg" 
-                    alt="منطقة التدريب الشخصي" 
-                    className="img-fluid"
-                  />
-                  <div className="image-overlay">
-                    <div className="overlay-content">
-                      <div className="feature-badge">
-                        <i className="fas fa-user-tie"></i>
-                        <span>تدريب شخصي</span>
-                      </div>
-                      <h3>منطقة التدريب الخاص</h3>
-                      <p>جلسات تدريبية مخصصة مع أفضل المدربين</p>
-                      <div className="feature-stats">
-                        <span><i className="fas fa-medal"></i> برامج مخصصة</span>
-                        <span><i className="fas fa-chart-line"></i> متابعة دقيقة</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Col>
-            
-            <Col lg={6} md={6} className="mb-4">
-              <div className="premium-gallery-item">
-                <div className="image-container">
-                  <img 
-                    src="https://makkahyard.com/wp-content/uploads/2024/12/2.jpeg" 
-                    alt="معدات اللياقة المتقدمة" 
-                    className="img-fluid"
-                  />
-                  <div className="image-overlay">
-                    <div className="overlay-content">
-                      <div className="feature-badge">
-                        <i className="fas fa-cogs"></i>
-                        <span>تقنية متقدمة</span>
-                      </div>
-                      <h3>معدات اللياقة الذكية</h3>
-                      <p>أحدث الأجهزة الرياضية بتقنيات ذكية متطورة</p>
-                      <div className="feature-stats">
-                        <span><i className="fas fa-wifi"></i> اتصال ذكي</span>
-                        <span><i className="fas fa-mobile-alt"></i> تطبيق متكامل</span>
-                      </div>
-                    </div>
-                  </div>
+            <Col lg={6} md={12}>
+              <div className="media-card hover-lift">
+                <img src="https://makkahyard.com/wp-content/uploads/2024/12/2.jpeg" alt="Smart Tech" />
+                <div className="media-icon-top"><i className="bi bi-smartwatch"></i></div>
+                <div className="media-overlay">
+                  <span className="badge-premium mb-2">تكنولوجيا حديثة</span>
+                  <h4>معدات اللياقة الذكية</h4>
+                  <p><i className="bi bi-check-circle-fill text-primary"></i> أجهزة تتبع الآداء متزامنة مع الهواتف الذكية والساعات.</p>
                 </div>
               </div>
             </Col>
           </Row>
-          
-          <div className="gallery-cta text-center mt-5">
-            <div className="cta-content">
-              <h3>🌟 جاهز لتجربة التميز؟ 🌟</h3>
-              <p>انضم إلى مجتمع مكة يارد واستمتع بأفضل المرافق الرياضية في المنطقة</p>
-              <div className="cta-buttons">
-                <Button as={Link} to="/membership" className="btn-premium me-3">
-                  <i className="fas fa-crown"></i>
-                  اشترك الآن
-                </Button>
-                <Button as={Link} to="/gallery" variant="outline-primary" className="btn-gallery">
-                  <i className="fas fa-images"></i>
-                  شاهد المزيد
-                </Button>
-              </div>
-            </div>
+
+          <div className="text-center mt-5">
+            <Link to="/membership" className="btn-premium px-5 py-3 fs-5">
+              ابدأ رحلتك الآن
+            </Link>
           </div>
         </Container>
       </section>

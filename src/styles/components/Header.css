@@ -1,186 +1,138 @@
-/* Header Styles */
+/* src/styles/components/Header.css */
 .navbar-custom {
-  background: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  padding: 4px 0; /* تقليل الارتفاع العام للهيدر */
-  border-bottom: 1px solid #e9ecef; /* تخفيف الحد السفلي لتقليل الإحساس بالفراغ */
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  padding: 0.75rem 0;
 }
 
-.navbar-custom .navbar-brand {
-  font-weight: bold;
-  color: #333 !important;
-}
-
-.brand-text {
-  font-family: 'Cairo', sans-serif;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #000;
-  margin-right: 15px;
-  text-shadow: none;
-  letter-spacing: 1px;
-}
-
-.logo {
-  height: 40px; /* تصغير الشعار الافتراضي */
+.brand-right img, .brand-mobile img {
+  height: 55px;
   width: auto;
+  transition: transform 0.3s ease;
+}
+
+.brand-right img:hover, .brand-mobile img:hover {
+  transform: scale(1.05);
+}
+
+.nav-center .nav-link,
+.nav-center .nav-item {
+  color: var(--text-main) !important;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem !important;
+  margin: 0 0.25rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-center .nav-link:hover,
+.nav-center .nav-item:hover,
+.nav-center .nav-link.active {
+  color: var(--primary-dark) !important;
+}
+
+.nav-center .nav-link::after,
+.nav-center .dropdown-toggle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.nav-center .nav-link:hover::after,
+.nav-center .nav-link.active::after,
+.nav-center .dropdown:hover .dropdown-toggle::after {
+  width: 60%;
+}
+
+.english-pill {
+  background: var(--primary-light);
+  color: var(--primary-dark) !important;
+  padding: 0.4rem 1.25rem !important;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
+  border: 1px solid rgba(139, 195, 74, 0.2);
 }
 
-.logo:hover {
-  transform: scale(1.03);
-}
-
-/* Navigation Links */
-.navbar-custom .navbar-nav .nav-link {
-  color: #0f172a !important;
-  font-weight: 800;
-  margin: 0 6px;
-  padding: 10px 14px !important;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  font-family: 'Tajawal','Cairo', sans-serif;
-  font-size: 1.15rem;
-  white-space: nowrap;
-}
-
-.navbar-custom .navbar-nav .nav-link:hover {
-  background-color: #f8f9fa;
-  color: #8BC34A !important;
+.english-pill:hover {
+  background: var(--primary);
+  color: white !important;
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(139, 195, 74, 0.3);
 }
 
-/* Top Right Logo */
-.top-right-logo {
-  max-height: 54px; /* تكبير الشعار كما في الصورة */
-  width: auto;
-  transition: all 0.3s ease;
-  object-fit: contain;
-  margin: 0; /* بدون فراغات إضافية */
+/* Custom Dropdown styling */
+.nav-center .dropdown-menu {
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  background: var(--bg-surface);
+  text-align: right;
+  min-width: 200px;
+  margin-top: 5px;
 }
 
-.logo-gap { margin-inline-start: 12px; }
-
-.top-right-logo:hover {
-  transform: scale(1.03);
+.dropdown-item {
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s;
 }
 
-.brand-right {
+.dropdown-item:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  transform: translateX(-5px);
+}
+
+/* Auth Buttons block */
+.auth-buttons {
   display: flex;
-  align-items: center;
-}
-
-/* Contact Info */
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  color: #000;
-  font-weight: bold;
-  font-size: 0.85rem;
+  gap: 10px;
   margin-right: 15px;
-}
-
-.phone-number {
-  font-weight: bold;
-  margin-bottom: 2px;
-}
-
-.email {
-  color: #666;
-  font-size: 0.8rem;
-}
-
-/* Contact links at navbar end */
-/* إخفاء معلومات التواصل لمواءمة الهيدر بالصورة */
-.contact-nav { display: none; }
-
-@media (max-width: 768px) {
-  .contact-nav { margin-top: 6px; }
-  .contact-nav .contact-link { padding: 6px 8px !important; }
-}
-
-/* Membership Button */
-.membership-btn {
-  background: linear-gradient(135deg, #8BC34A, #7CB342) !important;
-  border: none !important;
-  padding: 8px 20px !important;
-  font-weight: bold;
-  border-radius: 25px !important;
-  transition: all 0.3s ease;
-  font-family: 'Cairo', sans-serif;
-  color: #ffffff !important;
-}
-
-.membership-btn:hover {
-  background: linear-gradient(135deg, #7CB342, #689F38) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
-  color: #ffffff !important;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .navbar-custom .navbar-nav .nav-link {
-    margin: 0 3px;
-    padding: 8px 8px !important;
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 991px) {
-  .contact-info {
-    flex-direction: row;
-    justify-content: center;
-    margin: 10px 0;
+  .navbar-collapse {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
   }
   
-  .phone-number {
-    margin-right: 15px;
-    margin-bottom: 0;
+  .nav-center .nav-link, .nav-center .nav-item {
+    padding: 0.75rem 0 !important;
+    border-bottom: 1px solid #f1f5f9;
+    margin: 0;
   }
   
-  .navbar-custom .navbar-nav .nav-link {
-    margin: 5px 0;
-    text-align: center;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .logo {
-    height: 36px; /* أصغر على الشاشات الصغيرة */
+  .nav-center .nav-link::after { display: none; }
+  
+  .english-pill {
+    margin-top: 1.5rem;
+    display: inline-block;
   }
   
-  .top-right-logo {
-    max-height: 44px;
-    margin-bottom: 4px;
+  .auth-buttons {
+    margin-right: 0;
+    margin-top: 1rem;
+    flex-direction: column;
   }
-  
-  .brand-text {
-    font-size: 1rem;
-  }
-  
-  .contact-info {
-    font-size: 0.8rem;
-  }
-}
-
-/* Centered Nav */
-.nav-center {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
-/* Left English pill */
-.english-pill {
-  border: 1px solid #d0d6db !important;
-  border-radius: 8px;
-  padding: 6px 12px !important;
-  background: #ffffff !important;
-  color: #000 !important;
-}
-.english-pill:hover {
-  background: #f3f4f6 !important;
 }

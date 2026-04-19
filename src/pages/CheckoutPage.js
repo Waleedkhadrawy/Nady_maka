@@ -40,7 +40,6 @@ export default function CheckoutPage() {
   }, [data]);
 
   const placeOrder = async () => {
-    if (!window.confirm('هل تؤكد إرسال الطلب؟ سيتم مراجعته من الإدارة قبل تفعيل العضوية.')) return;
     if (!data) return;
     setBusy(true);
     try {
@@ -84,12 +83,15 @@ export default function CheckoutPage() {
 
   if (!data) {
     return (
-      <Container className="checkout-page py-5">
-        <Alert variant="warning" className="shadow-sm border-0 rounded-3">
-          لا توجد بيانات طلب.{' '}
-          <Link to="/membership">العودة لصفحة العضوية</Link>
-          {' · '}
-          <Link to="/pricing">استعراض الباقات</Link>
+      <Container className="checkout-page py-5 app-main">
+        <Alert variant="warning" className="shadow border-0 rounded-4 text-center p-5 mt-5">
+          <i className="bi bi-exclamation-triangle fs-1 text-warning mb-3 d-block"></i>
+          <h4>لا توجد بيانات طلب حالية</h4>
+          <p className="text-muted mb-4">يرجى العودة واختيار الباقة وتعبئة بياناتك أولاً.</p>
+          <div className="d-flex justify-content-center gap-3">
+            <Button as={Link} to="/membership" variant="primary" className="btn-premium">تسجيل عضوية جديدة</Button>
+            <Button as={Link} to="/pricing" variant="outline-secondary" className="btn-outline-premium text-muted border-secondary">استعراض الباقات</Button>
+          </div>
         </Alert>
       </Container>
     );
@@ -98,23 +100,26 @@ export default function CheckoutPage() {
   const methodKey = data?.payment?.method || 'cash';
 
   return (
-    <div className="checkout-page">
-      <Container className="py-4 py-md-5">
-        <div className="checkout-hero">
+    <div className="checkout-page app-main pt-4 pt-md-5">
+      <Container>
+        <div className="checkout-hero reveal-up">
+          <div className="section-badge border border-primary text-primary">
+            <i className="bi bi-receipt"></i> الخطوة الأخيرة
+          </div>
           <h1>مراجعة الطلب والدفع</h1>
           <p>
-            راجع باقتك وطريقة الدفع، أضف أي ملاحظة، ثم أرسل الطلب. بعد الإرسال ستقوم الإدارة بالمراجعة والموافقة أو الرفض من لوحة
-            الطلبات.
+            راجع تفاصيل باقتك وطريقة الدفع المختارة، يمكنك إضافة أي ملاحظة للإدارة، ثم أرسل الطلب ليكون قيد التنفيذ الفوري.
           </p>
         </div>
 
         <Row className="g-4 justify-content-center">
-          <Col lg={7} md={12}>
-            <Card className="checkout-card border-0 mb-3 mb-lg-0">
-              <Card.Body>
-                <h5 className="mb-3 d-flex align-items-center gap-2">
-                  <span className="text-success">●</span> ملخص الباقة
-                </h5>
+          <Col lg={6} md={12}>
+            <Card className="checkout-card reveal-up" style={{ animationDelay: '0.1s' }}>
+              <Card.Body className="p-4">
+                <h4 className="mb-4 d-flex align-items-center gap-2 text-primary">
+                  <i className="bi bi-file-earmark-text-fill"></i> ملخص الباقة
+                </h4>
+                
                 <div className="package-highlight">
                   <div className="pkg-title">{data.membership.label}</div>
                   <div className="pkg-meta">
@@ -127,68 +132,85 @@ export default function CheckoutPage() {
                     ) : null}
                   </div>
                 </div>
+                
+                <div className="summary-row">
+                  <span>المستفيد الأول</span>
+                  <span>{data.user.firstName} {data.user.lastName}</span>
+                </div>
                 <div className="summary-row">
                   <span>السعر المعروض</span>
-                  <span>{priceDisplay}</span>
+                  <span className="text-primary fs-5">{priceDisplay}</span>
                 </div>
                 <div className="summary-row">
                   <span>طريقة الدفع</span>
                   <span>
-                    <Badge bg="light" text="dark" className="border">
+                    <Badge bg="light" text="dark" className="border px-3 py-2 fs-6">
                       {paymentLabel(methodKey)}
                     </Badge>
                   </span>
                 </div>
                 <div className="summary-row">
                   <span>حالة الطلب بعد الإرسال</span>
-                  <span className="text-warning">قيد المراجعة</span>
+                  <span className="text-warning"><i className="bi bi-hourglass-split"></i> قيد المراجعة</span>
                 </div>
-                <div className="d-flex flex-wrap gap-2 mt-3">
-                  <Button as={Link} to="/membership" variant="outline-secondary" size="sm" className="btn-outline-muted">
-                    تعديل البيانات
-                  </Button>
-                  <Button as={Link} to="/pricing" variant="outline-secondary" size="sm" className="btn-outline-muted">
-                    تصفح كل الباقات
-                  </Button>
-                </div>
+
+                {!placed && (
+                  <div className="d-flex flex-wrap gap-2 mt-4 pt-3 border-top">
+                    <Button as={Link} to="/membership" variant="outline-secondary" size="sm" className="btn-outline-muted">
+                      تعديل البيانات <i className="bi bi-pencil ms-1"></i>
+                    </Button>
+                  </div>
+                )}
               </Card.Body>
             </Card>
           </Col>
 
-          <Col lg={5} md={12}>
-            <Card className="checkout-card border-0">
-              <Card.Body>
-                <h5 className="mb-3">معلومات إضافية</h5>
-                <Form.Control
-                  as="textarea"
-                  rows={5}
-                  className="mb-3"
-                  placeholder="ملاحظات حول الطلب (اختياري)"
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                />
+          <Col lg={6} md={12}>
+            <Card className="checkout-card reveal-up" style={{ animationDelay: '0.2s' }}>
+              <Card.Body className="p-4">
+                <h4 className="mb-4"><i className="bi bi-info-square-fill text-muted me-2"></i>معلومات إضافية والتأكيد</h4>
+                
                 {placed ? (
-                  <Alert variant={placed.status === 'active' ? 'success' : 'info'} className="mb-0 border-0 rounded-3">
-                    <strong>تم استلام طلبك.</strong>
-                    <br />
-                    رقم العضوية (مرجع): {placed.id}
-                    <br />
-                    رقم الطلب: {placed.orderId || '—'}
-                    <br />
-                    الحالة: {placed.status === 'pending' ? 'قيد المراجعة من الإدارة' : placed.status || '—'}
-                    <br />
-                    {placed.joinDate ? <>بداية العضوية المخططة: {new Date(placed.joinDate).toLocaleDateString('ar-SA')}</> : null}
-                    <br />
-                    {placed.expiryDate ? <>انتهاء العضوية المخطط: {new Date(placed.expiryDate).toLocaleDateString('ar-SA')}</> : null}
-                    <hr className="my-2" />
-                    <small className="text-muted">
-                      يمكن للإدارة قبول الطلب أو رفضه من: <strong>لوحة التحكم → إدارة الطلبات</strong>.
-                    </small>
+                  <Alert variant={placed.status === 'active' ? 'success' : 'info'} className="mb-0 border-0 rounded-4 shadow-sm p-4 text-center">
+                    <i className="bi bi-check-circle-fill fs-1 text-success d-block mb-3"></i>
+                    <h5 className="mb-3"><strong>تم استلام طلبك بنجاح!</strong></h5>
+                    
+                    <ul className="list-unstyled text-end mb-4 bg-white rounded p-3 text-muted">
+                      <li className="mb-2"><strong>رقم العضوية (مرجع):</strong> {placed.id}</li>
+                      <li className="mb-2"><strong>رقم الطلب:</strong> {placed.orderId || '—'}</li>
+                      <li className="mb-2"><strong>الحالة:</strong> {placed.status === 'pending' ? 'قيد المراجعة من الإدارة' : placed.status || '—'}</li>
+                      {placed.joinDate && <li className="mb-2"><strong>بداية العضوية المخططة:</strong> {new Date(placed.joinDate).toLocaleDateString('ar-SA')}</li>}
+                      {placed.expiryDate && <li><strong>انتهاء العضوية المخطط:</strong> {new Date(placed.expiryDate).toLocaleDateString('ar-SA')}</li>}
+                    </ul>
+                    <hr className="my-3 mx-auto w-50" />
+                    <p className="small text-muted mb-0">
+                      سنقوم بمراجعة طلبك وإشعارك قريباً بالموافقة، وسيمكنك متابعة حالة عضويتك من <Link to="/profile">صفحة حسابك الشخصي</Link>.
+                    </p>
                   </Alert>
                 ) : (
-                  <Button variant="success" className="w-100 btn-confirm" onClick={placeOrder} disabled={busy}>
-                    {busy ? 'جاري الإرسال...' : 'تأكيد إرسال الطلب'}
-                  </Button>
+                  <>
+                    <Form.Group className="mb-4">
+                      <Form.Label className="text-muted mb-2">ملاحظات حول الطلب (اختياري)</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows={4}
+                        placeholder="أي تفاصيل ترغب بإيصالها للإدارة..."
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                      />
+                    </Form.Group>
+                    
+                    <Button variant="success" className="w-100 btn-confirm py-3" onClick={placeOrder} disabled={busy}>
+                      {busy ? (
+                        <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> جاري الإرسال...</>
+                      ) : (
+                        <>تأكيد إرسال الطلب <i className="bi bi-send-check ms-1"></i></>
+                      )}
+                    </Button>
+                    <p className="text-center text-muted small mt-3 mb-0">
+                      بالنقر على الزر أعلاه، أنت توافق على شروط وأحكام العضوية لنادي مكة يارد
+                    </p>
+                  </>
                 )}
               </Card.Body>
             </Card>

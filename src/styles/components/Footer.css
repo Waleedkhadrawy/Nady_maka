@@ -1,214 +1,215 @@
-.footer {
-  color: #fff;
-  padding: 50px 0 20px;
-  margin-top: auto;
+/* src/styles/components/Footer.css */
+.footer-premium {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  color: #f1f5f9;
+  padding-top: 4rem;
+  border-top: 5px solid var(--primary);
+  position: relative;
+  overflow: hidden;
 }
 
-.footer-green {
-  background: #6fa626; /* green theme to match provided image */
+/* Background Decoration */
+.footer-premium::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139,195,74,0.05) 0%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.footer h5 {
+.footer-top {
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-title {
   color: #fff;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 800;
   margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.club-info p {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.contact-list li i {
+  color: var(--primary);
   font-size: 1.2rem;
 }
 
-.footer p {
-  color: #bdc3c7;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.footer a {
-  color: #bdc3c7;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer a:hover {
-  color: #e74c3c;
-  text-decoration: none;
-}
-
-.footer ul {
+.footer-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.footer ul li {
-  margin-bottom: 0.5rem;
+.footer-list li {
+  margin-bottom: 0.8rem;
 }
 
-.footer ul li a {
-  color: #bdc3c7;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.footer-link {
+  color: #cbd5e1 !important;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
 }
 
-.footer ul li a:hover {
-  color: #e74c3c;
-  padding-left: 5px;
+.footer-link::before {
+  content: '\F284'; /* bootstrap-icons arrow-left-short */
+  font-family: 'bootstrap-icons';
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  color: var(--primary);
+  margin-left: 5px;
 }
 
-.footer-logo {
-  max-height: 50px;
-  margin-bottom: 1rem;
+.footer-link:hover {
+  color: var(--primary) !important;
+  transform: translateX(-5px);
 }
 
-/* Green footer layout elements */
-.footer-title {
-  font-weight: 800;
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
+.footer-link:hover::before {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .newsletter-form {
-  display: flex;
-  gap: 12px;
-  max-width: 420px;
-}
-
-.newsletter-input {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: none;
-}
-
-.newsletter-input::placeholder { color: #2c3e50; }
-
-.newsletter-btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 800;
-  background: rgba(255,255,255,0.25);
-  color: #fff;
-}
-
-.newsletter-btn:hover { background: rgba(255,255,255,0.35); }
-
-.footer-list { list-style: none; padding: 0; margin: 0; }
-.footer-list li { margin-bottom: 10px; }
-.footer-link { color: #fff; text-decoration: none; font-weight: 700; }
-.footer-link:hover { text-decoration: underline; }
-
-.club-info { text-align: right; }
-.club-header { display: flex; justify-content: flex-end; }
-.club-logo { height: 60px; }
-.contact-list { list-style: none; padding: 0; margin: 18px 0; }
-.contact-list li { display: flex; align-items: center; gap: 8px; font-weight: 700; }
-.social-icons { display: flex; gap: 12px; justify-content: flex-end; }
-.social-icons a { color: #fff; font-size: 1.4rem; }
-.social-icons a:hover { color: #e3f2ff; }
-
-.footer-bottom {
-  border-top: 1px solid #34495e;
-  padding-top: 20px;
-  margin-top: 30px;
-  text-align: center;
-}
-
-.footer-bottom p {
-  margin: 0;
-  color: #95a5a6;
-  font-size: 0.9rem;
-}
-
-.contact-info {
-  margin-bottom: 1rem;
-}
-
-.contact-info i {
-  color: #e74c3c;
-  margin-right: 10px;
-  width: 20px;
-}
-
-.newsletter {
+  position: relative;
   margin-top: 1rem;
 }
 
-.newsletter .input-group {
-  margin-bottom: 1rem;
+.newsletter-input {
+  width: 100%;
+  padding: 12px 16px;
+  padding-left: 110px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.newsletter .form-control {
-  background: #34495e;
-  border: 1px solid #34495e;
-  color: #fff;
-  border-radius: 25px 0 0 25px;
+.newsletter-input:focus {
+  border-color: var(--primary);
+  background: rgba(255,255,255,0.08);
 }
 
-.newsletter .form-control:focus {
-  background: #34495e;
-  border-color: #e74c3c;
-  color: #fff;
-  box-shadow: none;
+.newsletter-btn {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  bottom: 5px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0 20px;
+  font-weight: 700;
+  transition: background 0.3s;
 }
 
-.newsletter .form-control::placeholder {
-  color: #bdc3c7;
+.newsletter-btn:hover {
+  background: var(--primary-dark);
 }
 
-.newsletter .btn {
-  border-radius: 0 25px 25px 0;
-  background: #e74c3c;
-  border-color: #e74c3c;
+.social-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
 }
 
-.newsletter .btn:hover {
-  background: #c0392b;
-  border-color: #c0392b;
+.social-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cbd5e1 !important;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
-@media (max-width: 768px) {
-  .footer {
-    padding: 40px 0 20px;
-  }
-  
-  .footer h5 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .social-links {
-    justify-content: center;
-    margin-top: 1.5rem;
-  }
-  
-  .footer-bottom {
-    margin-top: 20px;
-    padding-top: 15px;
-  }
+.social-icon-box:hover {
+  background: var(--primary);
+  color: white !important;
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: 0 5px 15px rgba(139, 195, 74, 0.3);
 }
 
-/* Payment band at bottom */
 .payment-band {
-  background: rgba(0, 0, 0, 0.18);
-  border-radius: 12px;
-  padding: 14px 18px;
-  margin-top: 24px;
+  background: rgba(255,255,255,0.03);
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  margin-top: 2rem;
 }
 
 .payment-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 20px;
+  align-items: center;
 }
 
 .payment-logo {
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 8px 12px;
-  min-width: 90px;
-  height: 44px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  height: 24px;
+  opacity: 0.6;
+  filter: grayscale(100%) brightness(200%);
+  transition: all 0.3s;
 }
 
-@media (max-width: 768px) {
-  .payment-logo { min-width: 72px; height: 36px; padding: 8px 12px; }
+.payment-logo:hover {
+  opacity: 1;
+  filter: grayscale(0) brightness(100%);
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1.5rem 0;
+  color: #64748b;
+  font-size: 0.85rem;
 }

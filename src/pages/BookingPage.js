@@ -1,254 +1,206 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import SectionTitle from '../components/SectionTitle';
-import '../styles/pages/BookingPage.css';
 import { api } from '../services/api';
 import toast from 'react-hot-toast';
+import '../styles/pages/BookingPage.css';
 
-const BookingPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    service: '',
-    date: '',
-    time: '',
-    notes: ''
+const SERVICES = [
+  { id: 'pt', name: 'تدريب شخصي 1on1', desc: 'جلسة تدريب خاصة مع مدرب محترف', icon: 'bi-person-vcard' },
+  { id: 'group', name: 'حصة جماعية', desc: 'تمارين الكارديو واللياقة ضمن مجموعة', icon: 'bi-people-fill' }, // Only bootstrap-icons
+  { id: 'sauna', name: 'جلسة استشفاء', desc: 'مساج، ساونا، ومرافق صحية', icon: 'bi-droplet-half' },
+  { id: 'academy', name: 'الأكاديميات', desc: 'تقييم والتحاق ببرامج الأكاديمية', icon: 'bi-mortarboard-fill' },
+];
+
+export default function BookingPage() {
+  const [form, setForm] = useState({
+    name: '', email: '', phone: '', date: '', time: '', service: '', notes: ''
   });
-  const [showAlert, setShowAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const services = [
-    'مقابلة',
-    'استشارة تدريبية',
-    'تقييم اللياقة البدنية',
-    'جلسة تدريب شخصي',
-    'استشارة تغذية',
-    'برنامج تدريبي مخصص'
-  ];
+  // Time slots logic
+  const availableSlots = ['08:00', '10:00', '13:00', '15:00', '17:00', '19:00', '21:00'];
 
-  const timeSlots = [
-    { label: '05:00 مساءً', value: '17:00:00' },
-    { label: '05:30 مساءً', value: '17:30:00' },
-    { label: '06:00 مساءً', value: '18:00:00' },
-    { label: '06:30 مساءً', value: '18:30:00' },
-    { label: '07:00 مساءً', value: '19:00:00' },
-    { label: '07:30 مساءً', value: '19:30:00' },
-    { label: '08:00 مساءً', value: '20:00:00' },
-    { label: '08:30 مساءً', value: '20:30:00' },
-    { label: '09:00 مساءً', value: '21:00:00' },
-    { label: '09:30 مساءً', value: '21:30:00' },
-    { label: '10:00 مساءً', value: '22:00:00' }
-  ];
-
-  const handleInputChange = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    let nextValue = value;
+    if (name === 'phone') nextValue = value.replace(/[^\d]/g, '').slice(0, 10);
+    setForm({ ...form, [name]: nextValue });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Submitting booking form:', formData);
-    
+  const getFieldError = (fieldName) => {
+    if (fieldName === 'phone' && form.phone && !/^05\d{8}$/.test(form.phone)) return 'رقم الجوال يجب أن يبدأ بـ 05 ويتكون من 10 أرقام';
+    return '';
+  };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.service) return toast.error('يرجى اختيار الخدمة أولاً');
+    if (!form.time) return toast.error('يرجى تحديد وقت الحجز');
+    if (getFieldError('phone')) return toast.error(getFieldError('phone'));
+
+    setLoading(true);
     try {
-      console.log('Calling api.createBooking...');
-      const response = await api.createBooking({ 
-        name: formData.name, 
-        phone: formData.phone, 
-        email: formData.email, 
-        service: formData.service, 
-        date: formData.date, 
-        time: formData.time, 
-        notes: formData.notes 
+      const scheduled_at = `${form.date}T${form.time}:00`;
+      await api.createBooking({
+        name: form.name, email: form.email, phone: form.phone,
+        service: form.service, scheduled_at, notes: form.notes
       });
-      console.log('Booking created successfully:', response);
-      setShowAlert(true);
-      setFormData({ name: '', phone: '', email: '', service: '', date: '', time: '', notes: '' });
+      setSuccess(true);
       toast.success('تم إرسال طلب الحجز بنجاح');
+      window.scrollTo(0, 0);
     } catch (err) {
-      console.error('Booking submission error:', err);
-      toast.error(err.message || 'تعذر إرسال طلب الحجز');
+      toast.error(err.message || 'حدث خطأ أثناء إرسال الحجز');
+    } finally {
+      setLoading(false);
     }
   };
 
+  if (success) {
+    return (
+      <Container className="booking-page app-main py-5 text-center">
+        <Col md={8} className="mx-auto mt-5">
+          <Alert variant="success" className="p-5 border-0 rounded-4 shadow-sm">
+            <i className="bi bi-calendar-check-fill text-success" style={{ fontSize: '4rem' }}></i>
+            <h2 className="mt-4 mb-3">تم إرسال طلب الحجز بنجاح!</h2>
+            <p className="lead text-muted mb-4">
+              شكراً لك {form.name}، سنقوم بمراجعة طلب حجزك لخدمة <strong>{SERVICES.find(s=>s.id===form.service)?.name}</strong> والتواصل معك قريباً لتأكيد الموعد.
+            </p>
+            <Button variant="outline-success" className="btn-outline-premium mx-2" onClick={() => { setSuccess(false); setForm({name:'', email:'', phone:'', date:'', time:'', service:'', notes:''}); }}>
+              حجز موعد جديد <i className="bi bi-plus-circle ms-1"></i>
+            </Button>
+            <Button href="/" variant="primary" className="btn-premium mx-2">
+              العودة للرئيسية <i className="bi bi-house ms-1"></i>
+            </Button>
+          </Alert>
+        </Col>
+      </Container>
+    );
+  }
+
   return (
-    <div className="booking-page">
-      {/* Booking Form Section */}
-      <section className="booking-form-section py-5">
-        <Container>
-          <Row className="justify-content-center">
-            {/* Form Column */}
-            <Col lg={8}>
-              {showAlert && (
-                <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
-                  تم إرسال طلب الحجز بنجاح! سنتواصل معك قريباً لتأكيد الموعد.
-                </Alert>
-              )}
+    <div className="booking-page app-main pt-4 pt-md-5">
+      <Container>
+        <div className="section-title-wrapper reveal-up mb-5">
+          <div className="section-badge border border-primary text-primary">
+            <i className="bi bi-calendar-date"></i> المواعيد
+          </div>
+          <h2>حجز موعد</h2>
+          <p className="lead mx-auto" style={{ maxWidth: 600 }}>
+            احجز موعدك لزيارة النادي، التقييم الرياضي، أو الاستفادة من الجلسات التدريبية المخصصة.
+          </p>
+        </div>
+
+        <Form onSubmit={onSubmit}>
+          <Row className="g-4">
+            {/* Right side: Service & Calendar */}
+            <Col lg={7} className="reveal-up" style={{ animationDelay: '0.1s' }}>
               
-              <Card className="shadow">
-                <Card.Header className="bg-primary text-white">
-                  <h4 className="mb-0">نموذج حجز الموعد</h4>
-                  <small className="d-block mt-2">1) اختر الخدمة  2) حدد التاريخ والوقت  3) أكمل بياناتك ثم أرسل الطلب</small>
-                </Card.Header>
-                <Card.Body>
-                  <Form onSubmit={handleSubmit}>
-                    <Row>
-                      <Col md={6}>
-                        <Form.Group className="mb-3">
-                          <Form.Label>الاسم الكامل *</Form.Label>
-                          <Form.Control
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                            placeholder="أدخل اسمك الكامل"
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col md={6}>
-                        <Form.Group className="mb-3">
-                          <Form.Label>رقم الهاتف *</Form.Label>
-                          <Form.Control
-                            type="tel"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            required
-                            placeholder="05xxxxxxxx"
-                            pattern="05\d{8}"
-                          />
-                        </Form.Group>
-                      </Col>
-                    </Row>
-
-                    <Form.Group className="mb-3">
-                      <Form.Label>البريد الإلكتروني *</Form.Label>
-                      <Form.Control
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="example@email.com"
-                      />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                      <Form.Label>نوع الخدمة *</Form.Label>
-                      <Form.Select
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        required
-                      >
-                        <option value="">اختر نوع الخدمة</option>
-                        {services.map((service, index) => (
-                          <option key={index} value={service}>{service}</option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-
-                    <Row>
-                      <Col md={6}>
-                        <Form.Group className="mb-3">
-                          <Form.Label>التاريخ المفضل *</Form.Label>
-                          <Form.Control
-                            type="date"
-                            name="date"
-                            value={formData.date}
-                            onChange={handleInputChange}
-                            required
-                            min={new Date().toISOString().split('T')[0]}
-                          />
-                        </Form.Group>
-                      </Col>
-                      <Col md={6}>
-                        <Form.Group className="mb-3">
-                          <Form.Label>الوقت المفضل *</Form.Label>
-                          <Form.Select
-                            name="time"
-                            value={formData.time}
-                            onChange={handleInputChange}
-                            required
-                          >
-                            <option value="">اختر الوقت</option>
-                            {timeSlots.map((slot, index) => (
-                              <option key={index} value={slot.value}>{slot.label}</option>
-                            ))}
-                          </Form.Select>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-
-                    <Form.Group className="mb-4">
-                      <Form.Label>ملاحظات إضافية</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        name="notes"
-                        value={formData.notes}
-                        onChange={handleInputChange}
-                        placeholder="أي ملاحظات أو متطلبات خاصة"
-                      />
-                    </Form.Group>
-
-                    <div className="text-center">
-                      <Button type="submit" variant="primary" size="lg">
-                        احجز الموعد
-                      </Button>
+              <h5 className="mb-3 text-primary"><i className="bi bi-ui-checks-grid me-2"></i>اختر نوع الخدمة أو الموعد</h5>
+              <Row className="g-3 mb-5">
+                {SERVICES.map(svc => (
+                  <Col md={6} key={svc.id}>
+                    <div 
+                      className={`service-card ${form.service === svc.id ? 'selected' : ''}`}
+                      onClick={() => setForm({...form, service: svc.id})}
+                    >
+                      <i className={`bi ${svc.icon}`}></i>
+                      <h5>{svc.name}</h5>
+                      <p>{svc.desc}</p>
                     </div>
-                  </Form>
+                  </Col>
+                ))}
+              </Row>
+
+              <div className="calendar-header shadow-sm">
+                <i className="bi bi-calendar3"></i>
+                <div>
+                  <h3>حدد التاريخ والوقت</h3>
+                  <p className="mb-0 text-white-50">يوم الحجز وتفضيل الوقت المناسب لجداولك</p>
+                </div>
+              </div>
+
+              <Row className="g-3">
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label className="fw-bold">حدد التاريخ *</Form.Label>
+                    <Form.Control 
+                      type="date" 
+                      name="date" 
+                      value={form.date} 
+                      onChange={onChange} 
+                      required 
+                      min={new Date().toISOString().split('T')[0]}
+                      className="py-3"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={12}>
+                  <Form.Label className="fw-bold mt-2">الأوقات المتاحة *</Form.Label>
+                  <div>
+                    {availableSlots.map(t => (
+                      <span 
+                        key={t}
+                        className={`time-slot ${form.time === t ? 'selected' : ''}`}
+                        onClick={() => setForm({...form, time: t})}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+
+            {/* Left side: Personal Info & Submit */}
+            <Col lg={5} className="reveal-up" style={{ animationDelay: '0.2s' }}>
+              <Card className="booking-card glass-panel border-0 sticky-top" style={{ top: 100 }}>
+                <Card.Body className="p-4 p-md-5">
+                  <h4 className="mb-4 text-primary"><i className="bi bi-person-lines-fill me-2"></i>بياناتك الشخصية</h4>
+                  
+                  <Form.Group className="mb-3">
+                    <Form.Label>الاسم الكامل *</Form.Label>
+                    <div className="position-relative">
+                      <i className="bi bi-person position-absolute text-muted" style={{ right: 15, top: 12 }}></i>
+                      <Form.Control name="name" value={form.name} onChange={onChange} required style={{ paddingRight: 40 }} />
+                    </div>
+                  </Form.Group>
+                  
+                  <Form.Group className="mb-3">
+                    <Form.Label>رقم الجوال *</Form.Label>
+                    <div className="position-relative">
+                      <i className="bi bi-phone position-absolute text-muted" style={{ right: 15, top: 12 }}></i>
+                      <Form.Control name="phone" value={form.phone} onChange={onChange} required placeholder="05XXXXXXXX" style={{ paddingRight: 40, direction: 'ltr', textAlign: 'right' }} isInvalid={!!getFieldError('phone')} />
+                    </div>
+                    <Form.Control.Feedback type="invalid">{getFieldError('phone')}</Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>البريد الإلكتروني</Form.Label>
+                    <div className="position-relative">
+                      <i className="bi bi-envelope position-absolute text-muted" style={{ right: 15, top: 12 }}></i>
+                      <Form.Control type="email" name="email" value={form.email} onChange={onChange} style={{ paddingRight: 40, direction: 'ltr', textAlign: 'right' }} />
+                    </div>
+                  </Form.Group>
+
+                  <Form.Group className="mb-4">
+                    <Form.Label>ملاحظات (اختياري)</Form.Label>
+                    <Form.Control as="textarea" rows={3} name="notes" value={form.notes} onChange={onChange} placeholder="إضافة أي تفاصيل حول طلبك..." />
+                  </Form.Group>
+
+                  <Button type="submit" variant="primary" className="btn-premium w-100 py-3" disabled={loading}>
+                    {loading ? (
+                      <><span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> جارٍ المعالجة...</>
+                    ) : (
+                      <>تأكيد الحجز والإرسال <i className="bi bi-send-check ms-1"></i></>
+                    )}
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
           </Row>
-        </Container>
-      </section>
-
-      {/* Contact Info Section */}
-      <section className="contact-info-section bg-light py-5">
-        <Container>
-          <SectionTitle 
-            title="معلومات التواصل" 
-            subtitle="يمكنك التواصل معنا مباشرة"
-          />
-          <Row className="text-center">
-            <Col lg={4} md={6} className="mb-4">
-              <div className="contact-item">
-                <div className="contact-icon mb-3">
-                  <i className="fas fa-phone fa-3x text-primary"></i>
-                </div>
-                <h5>الهاتف</h5>
-                <p>+966 55 018 5959</p>
-              </div>
-            </Col>
-            <Col lg={4} md={6} className="mb-4">
-              <div className="contact-item">
-                <div className="contact-icon mb-3">
-                  <i className="fas fa-envelope fa-3x text-primary"></i>
-                </div>
-                <h5>البريد الإلكتروني</h5>
-                <p>info@makkahyard.com</p>
-              </div>
-            </Col>
-            <Col lg={4} md={6} className="mb-4">
-              <div className="contact-item">
-                <div className="contact-icon mb-3">
-                  <i className="fas fa-clock fa-3x text-primary"></i>
-                </div>
-                <h5>ساعات العمل</h5>
-                <p>السبت - الخميس: 6:00 ص - 11:00 م</p>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+        </Form>
+      </Container>
     </div>
   );
-};
-
-export default BookingPage;
+}

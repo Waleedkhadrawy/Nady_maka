@@ -1,5 +1,5 @@
 async function ensureUserSchema(pool){
-  const [cols] = await pool.query("SHOW COLUMNS FROM users");
+  const [cols] = await pool.query("SELECT column_name AS \"Field\" FROM information_schema.columns WHERE table_name = 'users'");
   const have = new Set(cols.map(c=>c.Field));
   const defs = [
     ['national_id', 'VARCHAR(32)'],
