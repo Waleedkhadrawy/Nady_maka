@@ -7,13 +7,14 @@
 /* Hero Section */
 .hero-premium {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   margin-top: -88px; /* Offset for header */
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
 .hero-video-wrap {

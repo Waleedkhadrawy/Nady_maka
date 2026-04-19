@@ -220,13 +220,4 @@ a:hover {
   padding-top: 80px; /* Space for fixed header */
 }
 
-/* Make Bootstrap rows nicer on mobile */
-.row {
-  margin-left: -12px;
-  margin-right: -12px;
-}
-
-.col, [class*="col-"] {
-  padding-left: 12px;
-  padding-right: 12px;
-}
+/* Make Bootstrap rows nicer on mobile overrides removed to stick to grid defaults */
