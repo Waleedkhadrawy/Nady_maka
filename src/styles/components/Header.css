@@ -13,6 +13,7 @@
   height: 55px;
   width: auto;
   transition: transform 0.3s ease;
+  mix-blend-mode: multiply; /* Removes white background */
 }
 
 .brand-right img:hover, .brand-mobile img:hover {
@@ -28,6 +29,7 @@
   margin: 0 0.25rem;
   position: relative;
   transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent words from wrapping on multiple lines */
 }
 
 .nav-center .nav-link:hover,
