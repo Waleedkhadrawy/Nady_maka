@@ -50,12 +50,20 @@ export function setMemberToken(token) {
   localStorage.setItem('member_token', token);
 }
 
+function isMemberApiPath(path = '') {
+  return (
+    path === '/api/member' ||
+    path.startsWith('/api/member/') ||
+    path.startsWith('/api/member-auth/')
+  );
+}
+
 async function request(path, options = {}) {
   const headers = {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
   };
-  const isMemberPath = path.startsWith('/api/member') || path.startsWith('/api/member-auth');
+  const isMemberPath = isMemberApiPath(path);
   const token = isMemberPath ? getMemberToken() : getToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
@@ -74,7 +82,7 @@ async function request(path, options = {}) {
 
 async function requestCsv(path) {
   const headers = { 'Content-Type': 'application/json' };
-  const isMemberPath = path.startsWith('/api/member') || path.startsWith('/api/member-auth');
+  const isMemberPath = isMemberApiPath(path);
   const token = isMemberPath ? getMemberToken() : getToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
   const res = await fetch(`${BASE_URL}${path}`, { headers });

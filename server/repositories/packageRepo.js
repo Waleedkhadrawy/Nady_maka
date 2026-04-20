@@ -9,10 +9,11 @@ async function ensurePackageSchema(pool){
 async function listPackages(pool, segment){
   await ensurePackageSchema(pool);
   if (segment) {
-    const [rows] = await pool.query('SELECT id, code, label, price, currency, period_days, kind, segment, allow_partner, min_age, max_age FROM membership_packages WHERE active = TRUE AND segment = ? ORDER BY id', [segment]);
+    const [rows] = await pool.query('SELECT id, code, label, price, currency, period_days, kind, segment, active, allow_partner, min_age, max_age FROM membership_packages WHERE active = TRUE AND segment = ? ORDER BY id', [segment]);
     return rows;
   }
-  const [rows] = await pool.query('SELECT id, code, label, price, currency, period_days, kind, segment, allow_partner, min_age, max_age FROM membership_packages WHERE active = TRUE ORDER BY id');
+  // Admin listing (without segment) should include both active/inactive packages.
+  const [rows] = await pool.query('SELECT id, code, label, price, currency, period_days, kind, segment, active, allow_partner, min_age, max_age FROM membership_packages ORDER BY id');
   return rows;
 }
 

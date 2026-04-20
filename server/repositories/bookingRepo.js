@@ -20,13 +20,16 @@ async function ensureBookingSchema(pool) {
     const [cols] = await pool.query("SELECT column_name AS \"Field\" FROM information_schema.columns WHERE table_name = 'bookings'");
     const have = new Set(cols.map(c => c.Field));
     const defs = [
-      ['name','VARCHAR(128)'],
-      ['phone','VARCHAR(64)'],
-      ['email','VARCHAR(255)'],
-      ['service','VARCHAR(255)']
+      ['name', 'VARCHAR(128)', 'NULL'],
+      ['phone', 'VARCHAR(64)', 'NULL'],
+      ['email', 'VARCHAR(255)', 'NULL'],
+      ['service', 'VARCHAR(255)', 'NULL'],
+      ['created_at', 'TIMESTAMP', 'NOT NULL DEFAULT CURRENT_TIMESTAMP'],
     ];
-    for (const [f, t] of defs) {
-      if (!have.has(f)) await pool.query(`ALTER TABLE bookings ADD COLUMN ${f} ${t} NULL`);
+    for (const [f, t, extra = ''] of defs) {
+      if (!have.has(f)) {
+        await pool.query(`ALTER TABLE bookings ADD COLUMN ${f} ${t} ${extra}`.trim());
+      }
     }
     _schemaEnsured = true;
   } catch (e) {

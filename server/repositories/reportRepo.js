@@ -11,7 +11,7 @@ async function getSummary(pool){
 
   const [[activitiesTotal]] = await pool.query('SELECT COUNT(*) AS c FROM activities');
   const [[trainersTotal]] = await pool.query('SELECT COUNT(*) AS c FROM trainers');
-  const [[eventsUpcoming]] = await pool.query('SELECT COUNT(*) AS c FROM events WHERE date >= CURDATE()');
+  const [[eventsUpcoming]] = await pool.query('SELECT COUNT(*) AS c FROM events WHERE date >= CURRENT_DATE');
   const [[bookingsTotal]] = await pool.query('SELECT COUNT(*) AS c FROM bookings');
   const [[paymentsCount]] = await pool.query('SELECT COUNT(*) AS c FROM payments');
   const [[paymentsSum]] = await pool.query('SELECT COALESCE(SUM(amount),0) AS s FROM payments');

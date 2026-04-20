@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 import { api } from '../../services/api';
 import toast from 'react-hot-toast';
+import '../../styles/pages/AdminPackagesPage.css';
 
 export default function PackagesPage(){
   const [rows,setRows] = useState([]);
   const [loading,setLoading] = useState(false);
   const [form,setForm] = useState({ code:'', label:'', price:'', currency:'SAR', period_days:'', kind:'individual', segment:'adult', active:true, allow_partner:false, min_age:'', max_age:'' });
   const [editingId, setEditingId] = useState(null);
+  const priceNum = Number(form.price) || 0;
+  const periodNum = Number(form.period_days) || 0;
+  const dailyPrice = periodNum > 0 ? (priceNum / periodNum) : 0;
+  const monthlyPrice = dailyPrice * 30;
 
   const load = async () => { setLoading(true); try{ const r=await api.listMembershipPackages(); setRows(r);} finally{ setLoading(false);} };
   useEffect(()=>{ load(); },[]);
@@ -54,13 +59,13 @@ export default function PackagesPage(){
 
   return (
     <AdminLayout>
-      <h2>إدارة باقات العضوية</h2>
-      <div className="alert alert-info border-0 rounded-3 mb-3" role="status">
+      <div className="packages-page">
+        <h2 className="packages-title">إدارة باقات العضوية</h2>
+      <div className="alert alert-info border-0 rounded-3 mb-3 packages-help" role="status">
         <strong>تدفق الموافقة:</strong> طلبات العملاء من الموقع تذهب إلى{' '}
-        <Link to="/admin/orders">إدارة الطلبات</Link> لقبولها أو رفضها. إضافة باقة هنا لا يُنشئ طلباً تلقائياً — فقط يعرضها للاختيار في
-        نموذج العضوية.
+        <Link to="/admin/orders">إدارة الطلبات</Link> لقبولها أو رفضها. إضافة باقة هنا لا يُنشئ طلبًا تلقائيًا - فقط يعرضها للاختيار في نموذج العضوية.
       </div>
-      <form onSubmit={submit} style={{ display:'grid', gap:8, gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', background:'#fff', padding:16, borderRadius:8, marginBottom:16 }}>
+      <form onSubmit={submit} className="packages-form">
         <input required placeholder="الكود" value={form.code} onChange={e=>setForm({...form,code:e.target.value})} />
         <input required placeholder="الاسم" value={form.label} onChange={e=>setForm({...form,label:e.target.value})} />
         <input placeholder="السعر" value={form.price} onChange={e=>setForm({...form,price:e.target.value})} />
@@ -72,45 +77,56 @@ export default function PackagesPage(){
         <select value={form.allow_partner? 'true':'false'} onChange={e=>setForm({...form,allow_partner:e.target.value==='true'})}><option value="false">بدون شريك</option><option value="true">يسمح بالشريك</option></select>
         <input placeholder="الحد الأدنى للعمر" value={form.min_age} onChange={e=>setForm({...form,min_age:e.target.value})} />
         <input placeholder="الحد الأقصى للعمر" value={form.max_age} onChange={e=>setForm({...form,max_age:e.target.value})} />
-        <button type="submit" style={{ gridColumn: '1 / -1', background:'#16a34a', color:'#fff', border:0, padding:'10px 16px', borderRadius:6 }}>{editingId?'تحديث':'إضافة'}</button>
+        <div className="packages-metrics">
+          <div className="packages-metric">
+            <span>سعر اليوم التقريبي</span>
+            <strong>{dailyPrice.toFixed(2)} {form.currency || 'SAR'}</strong>
+          </div>
+          <div className="packages-metric">
+            <span>سعر الشهر التقريبي</span>
+            <strong>{monthlyPrice.toFixed(2)} {form.currency || 'SAR'}</strong>
+          </div>
+        </div>
+        <button type="submit" className="packages-submit">{editingId?'تحديث':'إضافة'}</button>
       </form>
 
-      <div style={{ overflowX:'auto', background:'#fff', borderRadius:8 }}>
-        <table style={{ width:'100%', borderCollapse:'collapse' }}>
+      <div className="packages-table-wrap">
+        <table className="packages-table">
           <thead>
-            <tr style={{ background:'#f1f5f9' }}>
-              <th style={{ padding:8 }}>الكود</th>
-              <th style={{ padding:8 }}>الاسم</th>
-              <th style={{ padding:8 }}>السعر</th>
-              <th style={{ padding:8 }}>الأيام</th>
-              <th style={{ padding:8 }}>النوع</th>
-              <th style={{ padding:8 }}>الفئة</th>
-              <th style={{ padding:8 }}>نشطة</th>
-              <th style={{ padding:8 }}>شريك</th>
-              <th style={{ padding:8 }}>العمر (من-إلى)</th>
-              <th style={{ padding:8 }}>إجراءات</th>
+            <tr>
+              <th>الكود</th>
+              <th>الاسم</th>
+              <th>السعر</th>
+              <th>الأيام</th>
+              <th>النوع</th>
+              <th>الفئة</th>
+              <th>نشطة</th>
+              <th>شريك</th>
+              <th>العمر (من-إلى)</th>
+              <th>إجراءات</th>
             </tr>
           </thead>
           <tbody>
-            {loading ? (<tr><td colSpan="8" style={{ padding:16 }}>جاري التحميل...</td></tr>) : rows.length===0 ? (<tr><td colSpan="8" style={{ padding:16 }}>لا توجد بيانات</td></tr>) : rows.map(r=> (
+            {loading ? (<tr><td colSpan="10" className="packages-empty">جاري التحميل...</td></tr>) : rows.length===0 ? (<tr><td colSpan="10" className="packages-empty">لا توجد بيانات</td></tr>) : rows.map(r=> (
               <tr key={r.id}>
-                <td style={{ padding:8 }}>{r.code}</td>
-                <td style={{ padding:8 }}>{r.label}</td>
-                <td style={{ padding:8 }}>{r.price} {r.currency}</td>
-                <td style={{ padding:8 }}>{r.period_days}</td>
-                <td style={{ padding:8 }}>{r.kind}</td>
-                <td style={{ padding:8 }}>{r.segment}</td>
-                <td style={{ padding:8 }}>{String(r.active)}</td>
-                <td style={{ padding:8 }}>{r.allow_partner ? 'يسمح' : 'بدون'}</td>
-                <td style={{ padding:8 }}>{(r.min_age ?? '—') + ' - ' + (r.max_age ?? '—')}</td>
-                <td style={{ padding:8, display:'flex', gap:8 }}>
-                  <button onClick={()=>startEdit(r)} style={{ background:'#3b82f6', color:'#fff', border:0, borderRadius:6, padding:'6px 10px' }}>تعديل</button>
-                  <button onClick={()=>remove(r.id)} style={{ background:'#ef4444', color:'#fff', border:0, borderRadius:6, padding:'6px 10px' }}>حذف</button>
+                <td>{r.code}</td>
+                <td>{r.label}</td>
+                <td>{r.price} {r.currency}</td>
+                <td>{r.period_days}</td>
+                <td>{r.kind}</td>
+                <td>{r.segment}</td>
+                <td>{String(r.active)}</td>
+                <td>{r.allow_partner ? 'يسمح' : 'بدون'}</td>
+                <td>{(r.min_age ?? '—') + ' - ' + (r.max_age ?? '—')}</td>
+                <td className="packages-actions">
+                  <button onClick={()=>startEdit(r)} className="packages-btn packages-btn-edit">تعديل</button>
+                  <button onClick={()=>remove(r.id)} className="packages-btn packages-btn-delete">حذف</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     </AdminLayout>
   );
